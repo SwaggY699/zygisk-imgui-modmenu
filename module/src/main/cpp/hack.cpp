@@ -17,12 +17,6 @@
 #include "imgui_impl_opengl3.h"
 #include "MemoryPatch.h"
 
-struct My_Patches {
-
-MemoryPatch UnGuns;
-
-} hexPatches;
-
 bool UnlockG;
 
 static int                  g_GlHeight, g_GlWidth;
@@ -74,15 +68,11 @@ EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
     //ImGui::ShowDemoWindow();
     ImGui::Checkbox("Unlock All Guns", &UnlockG);
     
-    if(UnlockG) {
-
-		  UnGuns.Modify();
-
-	  } else {
-
-		  UnGuns.Restore();
-
-	}
+    if (UnlockG) {
+        hexPatches.Modify();
+    } else {
+        hexPatches.Restore();
+    }
     
     ImGui::EndFrame();
     ImGui::Render();
@@ -102,14 +92,7 @@ void hack_start(const char *_game_data_dir) {
     
     LOGI("%s: %p - %p",TargetLibName, g_TargetModule.start_address, g_TargetModule.end_address);
     
-    ProcMap il2cppMap;
-    
-    do {
-        il2cppMap = KittyMemory::getLibraryMap(TargetLibName);
-        sleep(1);
-    } while (!il2cppMap.isValid());
-    
-    hexPatches.UnGuns = MemoryPatch::createWithHex(TargetLibName, 0x140B390, "01 00 A0 E3 1E FF 2F E1");
+    MemoryPatch hexPatches = MemoryPatch::createWithHex(g_TargetModule, 0x140B390, "01 00 A0 E3 1E FF 2F E1");
     
 }
 
