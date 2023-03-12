@@ -15,7 +15,6 @@
 #include "imgui.h"
 #include "imgui_impl_android.h"
 #include "imgui_impl_opengl3.h"
-
 #include "MemoryPatch.h"
 
 struct My_Patches {
@@ -93,14 +92,23 @@ EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
 }
 
 void hack_start(const char *_game_data_dir) {
+    
     LOGI("hack start | %s", _game_data_dir);
+    
     do {
         sleep(1);
         g_TargetModule = utils::find_module(TargetLibName);
     } while (g_TargetModule.size <= 0);
+    
     LOGI("%s: %p - %p",TargetLibName, g_TargetModule.start_address, g_TargetModule.end_address);
-
-    // TODO: hooking/patching here
+    
+    ProcMap il2cppMap;
+    
+    do {
+        il2cppMap = KittyMemory::getLibraryMap(TargetLibName);
+        sleep(1);
+    } while (!il2cppMap.isValid());
+    
     hexPatches.UnGuns = MemoryPatch::createWithHex(TargetLibName, 0x140B390, "01 00 A0 E3 1E FF 2F E1");
     
 }
