@@ -68,7 +68,13 @@ EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplAndroid_NewFrame(g_GlWidth, g_GlHeight);
     ImGui::NewFrame();
+    
+    struct My_Patches {
 
+    MemoryPatch UnG;
+
+} hexPatches;
+    
     //ImGui::ShowDemoWindow();
     ImGui::Checkbox("Unlock All Guns", &UnlockG);
     
@@ -93,11 +99,7 @@ void hack_start(const char *_game_data_dir) {
     } while (g_TargetModule.size <= 0);
     LOGI("%s: %p - %p",TargetLibName, g_TargetModule.start_address, g_TargetModule.end_address);
     
-    struct My_Patches {
 
-    MemoryPatch UnG;
-
-} hexPatches;
 
     ProcMap il2cppMap;
     do {
