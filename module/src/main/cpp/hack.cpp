@@ -21,9 +21,7 @@ const char *libName = "libil2cpp.so";
 
 bool UnlockG;
 
-struct My_Patches {
-    MemoryPatch UnG;
-} hexPatches;
+
 
 static int                  g_GlHeight, g_GlWidth;
 static bool                 g_IsSetup = false;
@@ -95,6 +93,12 @@ void hack_start(const char *_game_data_dir) {
     } while (g_TargetModule.size <= 0);
     LOGI("%s: %p - %p",TargetLibName, g_TargetModule.start_address, g_TargetModule.end_address);
     
+    struct My_Patches {
+
+    MemoryPatch UnG;
+
+} hexPatches;
+
     ProcMap il2cppMap;
     do {
         il2cppMap = KittyMemory::getLibraryMap(libName);
