@@ -21,7 +21,11 @@ const char *libName = "libil2cpp.so";
 
 bool UnlockG;
 
+struct My_Patches {
 
+    MemoryPatch UnG;
+
+} hexPatches;
 
 static int                  g_GlHeight, g_GlWidth;
 static bool                 g_IsSetup = false;
@@ -69,19 +73,15 @@ EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
     ImGui_ImplAndroid_NewFrame(g_GlWidth, g_GlHeight);
     ImGui::NewFrame();
     
-    struct My_Patches {
 
-    MemoryPatch UnG;
-
-} hexPatches;
     
     //ImGui::ShowDemoWindow();
     ImGui::Checkbox("Unlock All Guns", &UnlockG);
     
     if (UnlockG) {
-        UnG.Modify();
+        hexPatches.UnG.Modify();
     } else {
-        UnG.Restore();
+        hexPatches.UnG.Restore();
     }
     
     ImGui::EndFrame();
