@@ -15,7 +15,7 @@
 #include "imgui.h"
 #include "imgui_impl_android.h"
 #include "imgui_impl_opengl3.h"
-#include "KittyMemory/MemoryPatch.h"
+
 #include "MemoryPatch.h"
 
 struct My_Patches {
