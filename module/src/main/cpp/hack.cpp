@@ -17,8 +17,13 @@
 #include "imgui_impl_opengl3.h"
 #include "KittyMemory/MemoryPatch.h"
 using namespace KittyMemory;
+const char *libName = "libil2cpp.so";
 
 bool UnlockG;
+
+struct My_Patches {
+    MemoryPatch UnG;
+} hexPatches;
 
 static int                  g_GlHeight, g_GlWidth;
 static bool                 g_IsSetup = false;
@@ -70,9 +75,9 @@ EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
     ImGui::Checkbox("Unlock All Guns", &UnlockG);
     
     if (UnlockG) {
-        //
+        UnG.Modify();
     } else {
-        //
+        UnG.Restore();
     }
     
     ImGui::EndFrame();
@@ -89,8 +94,14 @@ void hack_start(const char *_game_data_dir) {
         g_TargetModule = utils::find_module(TargetLibName);
     } while (g_TargetModule.size <= 0);
     LOGI("%s: %p - %p",TargetLibName, g_TargetModule.start_address, g_TargetModule.end_address);
-
-    // TODO: hooking/patching here
+    
+    ProcMap il2cppMap;
+    do {
+        il2cppMap = KittyMemory::getLibraryMap(libName);
+        sleep(1);
+    } while (!il2cppMap.isValid());
+    
+    hexPatches.UnG = MemoryPatch::createWithHex("libil2cpp.so", 0x2C54420, "01 00 A0 E3 1E FF 2F E1");
     
 }
 
