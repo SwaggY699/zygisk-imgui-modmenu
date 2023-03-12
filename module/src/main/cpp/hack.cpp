@@ -15,7 +15,15 @@
 #include "imgui.h"
 #include "imgui_impl_android.h"
 #include "imgui_impl_opengl3.h"
-#include "MemoryPatch.h"
+#include "KittyMemory/MemoryPatch.h"
+
+struct My_Patches {
+
+MemoryPatch UnGuns;
+
+} hexPatches;
+
+bool UnlockG;
 
 static int                  g_GlHeight, g_GlWidth;
 static bool                 g_IsSetup = false;
@@ -63,8 +71,19 @@ EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
     ImGui_ImplAndroid_NewFrame(g_GlWidth, g_GlHeight);
     ImGui::NewFrame();
 
-    ImGui::ShowDemoWindow();
+    //ImGui::ShowDemoWindow();
+    ImGui::Checkbox("Unlock All Guns", &UnlockG);
+    
+    if(UnlockG) {
 
+		  UnGuns.Modify();
+
+	  } else {
+
+		  UnGuns.Restore();
+
+	}
+    
     ImGui::EndFrame();
     ImGui::Render();
     glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
@@ -81,6 +100,7 @@ void hack_start(const char *_game_data_dir) {
     LOGI("%s: %p - %p",TargetLibName, g_TargetModule.start_address, g_TargetModule.end_address);
 
     // TODO: hooking/patching here
+    hexPatches.UnGuns = MemoryPatch::createWithHex(TargetLibName, 0x140B390, "01 00 A0 E3 1E FF 2F E1");
     
 }
 
