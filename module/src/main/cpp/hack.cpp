@@ -69,9 +69,9 @@ EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
     ImGui::Checkbox("Unlock All Guns", &UnlockG);
     
     if (UnlockG) {
-        hexPatches.Modify();
+        //
     } else {
-        hexPatches.Restore();
+        //
     }
     
     ImGui::EndFrame();
@@ -82,17 +82,14 @@ EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
 }
 
 void hack_start(const char *_game_data_dir) {
-    
     LOGI("hack start | %s", _game_data_dir);
-    
     do {
         sleep(1);
         g_TargetModule = utils::find_module(TargetLibName);
     } while (g_TargetModule.size <= 0);
-    
     LOGI("%s: %p - %p",TargetLibName, g_TargetModule.start_address, g_TargetModule.end_address);
-    
-    MemoryPatch hexPatches = MemoryPatch::createWithHex(g_TargetModule, 0x140B390, "01 00 A0 E3 1E FF 2F E1");
+
+    // TODO: hooking/patching here
     
 }
 
