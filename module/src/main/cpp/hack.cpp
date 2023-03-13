@@ -73,9 +73,9 @@ EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
     ImGui::Checkbox("Unlock All Guns", &UnlockG);
     
     if (UnlockG) {
-        //
+        hexPatches.UnG.Modify();
     } else {
-        //
+        hexPatches.UnG.Restore();
     }
     
     ImGui::EndFrame();
