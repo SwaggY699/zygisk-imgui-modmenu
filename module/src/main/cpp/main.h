@@ -27,7 +27,6 @@
 #include "KittyMemory/MemoryPatch.h"
 #include "json.hpp"
 #include "autoaddr.h"
-#include "hack.h"
 
 #include <cstring>
 #include <cstdio>
