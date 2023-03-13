@@ -66,20 +66,6 @@ JNIEnv* publicEnv;
 
 uintptr_t address = 0;
 
-std::string test;
-std::string test2;
-std::string test3;
-void configt() {
-    ifstream reader("/sdcard/config.txt");
-    if (reader.is_open())
-    {
-        reader >> std::hex >> test;
-        reader >> std::hex >> test2;
-        reader >> std::hex >> test3;
-    }
-    reader.close();
-}
-
 int page = 1;
 
 void cmdExecuteSystem(const char* input){
@@ -102,18 +88,6 @@ const char *libNames = f777.c_str();
 #include <iostream>
 #include <iomanip>
 #include <sstream>
-
-std::string gen_random(const int len) {
-    string id;
-    static const char gsfid[] =
-            "0123456789"
-            "abcdefghijklmnopqrstuvwxyz";
-    srand( (unsigned) time(nullptr) * getpid());
-    id.reserve(len);
-    for (int i = 0; i < len; ++i)
-        id += gsfid[rand() % (sizeof(gsfid) - 1)];
-    return id;
-}
 
 bool radarbool;
 
