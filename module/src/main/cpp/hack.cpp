@@ -18,7 +18,7 @@ JNIEnv *g_env = nullptr;
 
 static int                g_GlHeight, g_GlWidth;
 static bool               g_IsSetup = false;
-static std::string        g_InıFileName = "";
+static std::string        g_IniFileName = "";
 
 const char* gamePKG = "com.nobodyshot.POLYWAR";
 
@@ -30,8 +30,7 @@ bool UnlockG;
 
 HOOK(void, Input, void *thiz, void *ex_ab, void *ex_ac){
     origInput(thiz, ex_ab, ex_ac);
-    DobbyHook((void*)g_env->functions->RegisterNatives, (void*)hook_RegisterNatives, (void **)&old_RegisterNatives);
-    if (init) ImGui_ImplAndroid_HandleInputEvent((AInputEvent *)thiz); 
+    ImGui_ImplAndroid_HandleInputEvent((AInputEvent *)thiz); 
     return;
 }
 
