@@ -8,17 +8,17 @@
 #include <GLES3/gl3.h>
 
 #include "Dobby/include/dobby.h"
+int (*get_screen_height_unity)();
+int (*get_screen_width_unity)();
+int scrW = 0;
+int scrH = 0;
+JNIEnv *g_env = nullptr;
 #include "hack.h"
 #include "imgui.h"
-JNIEnv *g_env = nullptr;
 #include "imgui_impl_android.h"
 #include "imgui_impl_opengl3.h"
 #include "KittyMemory/MemoryPatch.h"
 #include "main.h"
-
-static int                g_GlHeight, g_GlWidth;
-static bool               g_IsSetup = false;
-static std::string        g_IniFileName = "";
 
 const char* gamePKG = "com.nobodyshot.POLYWAR";
 
@@ -26,61 +26,19 @@ const char* gamePKG = "com.nobodyshot.POLYWAR";
     ret (*orig##func)(__VA_ARGS__); \
     ret my##func(__VA_ARGS__)
 
-bool UnlockG;
 
 HOOK(void, Input, void *thiz, void *ex_ab, void *ex_ac){
     origInput(thiz, ex_ab, ex_ac);
-    ImGui_ImplAndroid_HandleInputEvent((AInputEvent *)thiz); 
+    DobbyHook((void*)g_env->functions->RegisterNatives, (void*)hook_RegisterNatives, (void **)&old_RegisterNatives);
+    if (init) ImGui_ImplAndroid_HandleInputEvent((AInputEvent *)thiz); 
     return;
 }
 
-void SetupImGui() {
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO &io = ImGui::GetIO();
-
-    io.IniFilename = g_IniFileName.c_str();
-    io.DisplaySize = ImVec2((float)g_GlWidth, (float)g_GlHeight);
-
-    ImGui_ImplAndroid_Init(nullptr);
-    ImGui_ImplOpenGL3_Init("#version 300 es");
-    ImGui::StyleColorsLight();
-
-    ImFontConfig font_cfg;
-    font_cfg.SizePixels = 22.0f;
-    io.Fonts->AddFontDefault(&font_cfg);
-
-    ImGui::GetStyle().ScaleAllSizes(3.0f);
-}
-//
 EGLBoolean (*old_eglSwapBuffers)(EGLDisplay dpy, EGLSurface surface);
 EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
-    eglQuerySurface(dpy, surface, EGL_WIDTH, &g_GlWidth);
-    eglQuerySurface(dpy, surface, EGL_HEIGHT, &g_GlHeight);
-
-    if (!g_IsSetup) {
-      SetupImGui();
-      g_IsSetup = true;
-    }
-
-    ImGuiIO &io = ImGui::GetIO();
-
-    ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplAndroid_NewFrame(g_GlWidth, g_GlHeight);
-    ImGui::NewFrame();
-
-    //ImGui::ShowDemoWindow();
-    ImGui::Checkbox("Unlock All Guns", &UnlockG);
-    
-    if (UnlockG) {
-        hexPatches.UnG.Modify();
-    } else {
-        hexPatches.UnG.Restore();
-    }
-    
-    ImGui::EndFrame();
-    ImGui::Render();
-    glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
+    eglQuerySurface(dpy, surface, EGL_WIDTH, &glWidth);
+    eglQuerySurface(dpy, surface, EGL_HEIGHT, &glHeight);
+    glInit();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     return old_eglSwapBuffers(dpy, surface);
 }
@@ -205,7 +163,10 @@ void *hack_thread(void *arg) {
     while (!unity_handle or !gl2_handle) {
         sleep(1);
     }
-    
+    get_screen_height_unity = (int (*)()) getAdress((0x68F7C4));
+    get_screen_width_unity = (int (*)()) getAdress((0x68F77C));
+    scrW = get_screen_width_unity();
+    scrH = get_screen_height_unity();
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
     if (dlsym_error)
@@ -233,6 +194,10 @@ void *hack_thread(void *arg) {
         DobbyHook(sym_input,(void*)myInput,(void**)&origInput);
     }
     ProcMap il2cppMap;
+    get_screen_height_unity = (int (*)()) getAdress((0x68F7C4));
+    get_screen_width_unity = (int (*)()) getAdress((0x68F77C));
+    scrW = get_screen_width_unity();
+    scrH = get_screen_height_unity();
     do {
         il2cppMap = KittyMemory::getLibraryMap(libName);
         sleep(1);
