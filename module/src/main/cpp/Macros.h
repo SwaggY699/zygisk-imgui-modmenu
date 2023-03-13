@@ -3,7 +3,6 @@
 
 //const char *unitylibName = OBFUSCATE("libunity.so");
 
-#define HOOK(offset, ptr, orig) DobbyHook((void *)getAbsoluteAddress(libName, string2Offset(OBFUSCATE(offset))), (void *)ptr, (void **)&orig)
 #define HOOK_LIB(lib, offset, ptr, orig) DobbyHook((void *)getAbsoluteAddress(OBFUSCATE(lib), string2Offset(OBFUSCATE(offset))), (void *)ptr, (void **)&orig)
 
 //Obfuscate offset
