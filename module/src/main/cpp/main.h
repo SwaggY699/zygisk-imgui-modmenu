@@ -382,6 +382,8 @@ bool openeds=true;
 int height;
 ImVec2 WinPos, WinSize;
 
+#include "Drawing.h"
+
 bool menuss = true;
 bool menusss = false;
 bool menussss = false;
@@ -408,7 +410,7 @@ return;
 
 int fps = int(io.Framerate);
 float deltat = io.DeltaTime;
-std::string t =  "HWID: "+hwidd + " | " + "FPS: " + std::to_string(fps);
+std::string t =  " + "FPS: " + std::to_string(fps);
 ImGui::Text(t.c_str());
 
 ImGui::BeginChild("##leftChild", ImVec2(ImGui::GetWindowSize().x/8.35f, ImGui::GetContentRegionAvail().y )); 
@@ -756,14 +758,14 @@ if (ImGui::CollapsingHeader(OBFUSCATE(ICON_FA_USER " legit"))) {
     // hacks
 } else if(menusssss){
     
-     ImGui::Text(OBFUSCATE("knives"));
+    // ImGui::Text(OBFUSCATE("knives"));
                       ImGui::Separator();
                       // hacks
                       ImGui::Separator();
-                      ImGui::Text(OBFUSCATE("gloves"));
+                     // ImGui::Text(OBFUSCATE("gloves"));
                       // hacks
                       ImGui::Separator();
-                      ImGui::Text(OBFUSCATE("weapons"));
+                    ///  ImGui::Text(OBFUSCATE("weapons"));
                       ImGui::Separator();
                       
 }
