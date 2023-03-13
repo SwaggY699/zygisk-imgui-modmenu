@@ -2807,7 +2807,7 @@ struct Vector3_2& Vector3_2::operator-=(const Vector3_2 rhs)
     z -= rhs.z;
     return *this;
 }
-
+/*
 char Vector3_2::ToChar(Vector3_2 a) {
     const char* x = (const char*)(int)a.x;
     const char* y = (const char*)(int)a.y;
@@ -2821,7 +2821,7 @@ char Vector3_2::ToChar(Vector3_2 a) {
     strncpy(buffer, ", ", sizeof(buffer));
     return buffer[25];
 }
-
+*/
 Vector3_2 operator-(Vector3_2 rhs) { return rhs * -1; }
 Vector3_2 operator+(Vector3_2 lhs, const float rhs) { return lhs += rhs; }
 Vector3_2 operator-(Vector3_2 lhs, const float rhs) { return lhs -= rhs; }
@@ -3987,7 +3987,7 @@ struct Vector4& Vector4::operator-=(const Vector4 rhs)
     Z -= rhs.Z;
     return *this;
 }
-
+/*
 char Vector4::ToChar(Vector4 a) {
     const char* X = (const char*)(int)a.X;
     const char* Y = (const char*)(int)a.Y;
@@ -4001,7 +4001,7 @@ char Vector4::ToChar(Vector4 a) {
     strncpy(buffer, ", ", sizeof(buffer));
     return buffer[25];
 }
-
+*/
 Vector4 operator-(Vector4 rhs) { return rhs * -1; }
 Vector4 operator+(Vector4 lhs, const float rhs) { return lhs += rhs; }
 Vector4 operator-(Vector4 lhs, const float rhs) { return lhs -= rhs; }
