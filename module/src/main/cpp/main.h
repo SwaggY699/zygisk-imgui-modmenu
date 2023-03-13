@@ -89,15 +89,13 @@ const char *libNames = f777.c_str();
 #include <iomanip>
 #include <sstream>
 
-bool radarbool;
-
 struct My_Patches {
-    MemoryPatch RadarHack;
+    MemoryPatch UnG;
 } hexPatches;
 
 void offsets_load() {
  
-  hexPatches.RadarHack = MemoryPatch::createWithHex(targetLibName, 0x140B390, OBFUSCATE("01 00 A0 E3 1E FF 2F E1"));
+  hexPatches.UnG = MemoryPatch::createWithHex(targetLibName, 0x140B390, OBFUSCATE("01 00 A0 E3 1E FF 2F E1"));
   
   
 pthread_exit(nullptr);
