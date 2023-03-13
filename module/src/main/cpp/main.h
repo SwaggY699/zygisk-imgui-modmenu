@@ -76,7 +76,7 @@ JNIEnv* publicEnv;
 #include <GLES2/gl2.h>
 
 uintptr_t address = 0;
-int  glWidth, glHeight
+int  glWidth, glHeight;
 
 int page = 1;
 
