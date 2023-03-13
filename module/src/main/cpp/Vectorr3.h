@@ -591,7 +591,7 @@ struct Vectorr3& Vectorr3::operator-=(const Vectorr3 rhs)
     Z -= rhs.Z;
     return *this;
 }
-
+/*
 char Vectorr3::ToChar(Vectorr3 a) {
     const char* x = (const char*)(int)a.X;
     const char* y = (const char*)(int)a.Y;
@@ -605,7 +605,7 @@ char Vectorr3::ToChar(Vectorr3 a) {
     strncpy(buffer, ", ", sizeof(buffer));
     return buffer[24];
 }
-
+*/
 Vectorr3 operator-(Vectorr3 rhs) { return rhs * -1; }
 Vectorr3 operator+(Vectorr3 lhs, const float rhs) { return lhs += rhs; }
 Vectorr3 operator-(Vectorr3 lhs, const float rhs) { return lhs -= rhs; }
