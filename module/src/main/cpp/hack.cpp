@@ -7,14 +7,18 @@
 #include <EGL/egl.h>
 #include <GLES3/gl3.h>
 
+#include "Dobby/include/dobby.h"
 #include "hack.h"
 #include "imgui.h"
 JNIEnv *g_env = nullptr;
 #include "imgui_impl_android.h"
 #include "imgui_impl_opengl3.h"
 #include "KittyMemory/MemoryPatch.h"
-
 #include "main.h"
+
+static int                g_GlHeight, g_GlWidth;
+static bool               g_IsSetup = false;
+static std::string        g_InıFileName = "";
 
 const char* gamePKG = "com.nobodyshot.POLYWAR";
 
