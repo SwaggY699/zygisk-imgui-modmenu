@@ -12,9 +12,12 @@ int (*get_screen_height_unity)();
 int (*get_screen_width_unity)();
 int scrW = 0;
 int scrH = 0;
-JNIEnv *g_env = nullptr;
+
 #include "hack.h"
 #include "imgui.h"
+
+JNIEnv *g_env = nullptr;
+
 #include "imgui_impl_android.h"
 #include "imgui_impl_opengl3.h"
 #include "KittyMemory/MemoryPatch.h"
