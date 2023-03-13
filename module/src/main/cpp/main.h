@@ -22,9 +22,6 @@
 
 #include "Obfuscate.h"
 
-#include <openssl/md5.h>
-#include <md5.h>
-
 #include "Utils.h"
 #include "Logger.h"
 #include "KittyMemory/MemoryPatch.h"
