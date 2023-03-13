@@ -1,11 +1,11 @@
 //
-// Created by Rev on 29/05/2021.
+//
 //
 
 #ifndef ImGuiAndroid_Drawing
 #define ImGuiAndroid_Drawing
 
-#include "../ImGui/imgui_internal.h"
+#include "../imgui/imgui_internal.h"
 namespace Drawing
 
 {
