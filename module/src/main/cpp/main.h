@@ -410,7 +410,7 @@ return;
 
 int fps = int(io.Framerate);
 float deltat = io.DeltaTime;
-std::string t =  " + "FPS: " + std::to_string(fps);
+std::string t =  "FPS: " + std::to_string(fps);
 ImGui::Text(t.c_str());
 
 ImGui::BeginChild("##leftChild", ImVec2(ImGui::GetWindowSize().x/8.35f, ImGui::GetContentRegionAvail().y )); 
