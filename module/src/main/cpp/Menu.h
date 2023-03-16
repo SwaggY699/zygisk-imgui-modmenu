@@ -5,9 +5,6 @@
 namespace Menu
 {
 
-    int (*Screen_get_height)();
-
-    int (*Screen_get_width)();
     ImVec4 color = ImVec4(1, 1, 1, 1);
 
     void DrawMenu()
