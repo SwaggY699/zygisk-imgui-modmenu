@@ -52,7 +52,7 @@ namespace Menu
     }
     void DrawImGui()
     {
-        if (init && Screen_get_height)
+        if (init && glHeight)
         {
             ImGuiIO &io = ImGui::GetIO();
             static bool WantTextInputLast = false;
