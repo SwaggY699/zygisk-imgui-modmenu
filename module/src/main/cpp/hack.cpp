@@ -34,8 +34,14 @@ HOOK(void, Input, void *thiz, void *ex_ab, void *ex_ac){
     return;
 }
 
-EGLBoolean (*old_eglSwapBuffers)(...);
+EGLBoolean (*old_eglSwapBuffers)(EGLDisplay dpy, EGLSurface surface);
 EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
+    eglQuerySurface(dpy, surface, EGL_WIDTH, &glWidth);
+    eglQuerySurface(dpy, surface, EGL_HEIGHT, &glHeight);
+	
+    if (glWidth <= 0 || glHeight <= 0) {
+       return eglSwapBuffers(dpy, surface);
+    }
     
     /*
     ImGui::Checkbox("Unlock All Guns", &UnlockG);
@@ -135,13 +141,13 @@ HOOK_DEF(void*, do_dlopen_V19, const char *name, int flags, const void *extinfo)
 
 int32_t (*orig_ANativeWindow_getWidth)(ANativeWindow* window);
 int32_t _ANativeWindow_getWidth(ANativeWindow* window) {
-	Menu::Screen_get_width = orig_ANativeWindow_getWidth(window);
+	screenWidth = orig_ANativeWindow_getWidth(window);
 	return orig_ANativeWindow_getWidth(window);
 }
 
 int32_t (*orig_ANativeWindow_getHeight)(ANativeWindow* window);
 int32_t _ANativeWindow_getHeight(ANativeWindow* window) {
-	Menu::Screen_get_height = orig_ANativeWindow_getHeight(window);
+	screenHeight = orig_ANativeWindow_getHeight(window);
 	return orig_ANativeWindow_getHeight(window);
 }
 
