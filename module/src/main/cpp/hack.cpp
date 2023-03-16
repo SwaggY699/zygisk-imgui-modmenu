@@ -17,6 +17,7 @@ JNIEnv *g_env = nullptr;
 #include "main.h"
 
 #include "ImGuiStuff.h"
+#include "NativeInput.h"
 #include "Menu.h"
 
 
