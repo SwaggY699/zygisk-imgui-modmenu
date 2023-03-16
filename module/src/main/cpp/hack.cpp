@@ -174,8 +174,8 @@ void *hack_thread(void *arg) {
         sleep(1);
     }
     
-    //Menu::Screen_get_height = (int (*)()) getAdresss((0x68F7C4));
-    //Menu::Screen_get_width = (int (*)()) getAdresss((0x68F77C));
+    Menu::Screen_get_height = (int (*)()) getAbsoluteAddress("libil2cpp.so", 0x68F7C4);
+    Menu::Screen_get_width = (int (*)()) getAbsoluteAddress("libil2cpp.so", 0x68F77C);
     
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
@@ -205,8 +205,8 @@ void *hack_thread(void *arg) {
     }
     ProcMap il2cppMap;
     
-    //Menu::Screen_get_height = (int (*)()) getAdresss((0x68F7C4));
-    //Menu::Screen_get_width = (int (*)()) getAdresss((0x68F77C));
+    Menu::Screen_get_height = (int (*)()) getAbsoluteAddress("libil2cpp.so", 0x68F7C4);
+    Menu::Screen_get_width = (int (*)()) getAbsoluteAddress("libil2cpp.so", 0x68F77C);
     
     do {
         il2cppMap = KittyMemory::getLibraryMap(libName);
