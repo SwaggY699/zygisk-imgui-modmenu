@@ -5,7 +5,7 @@
 #ifndef ImGuiAndroid_Drawing
 #define ImGuiAndroid_Drawing
 
-#include "../imgui/imgui_internal.h"
+#include "../imgui/backends/imgui_internal.h"
 namespace Drawing
 
 {
