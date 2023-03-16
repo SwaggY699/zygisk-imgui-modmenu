@@ -8,20 +8,17 @@
 #include <GLES3/gl3.h>
 
 #include "Dobby/include/dobby.h"
-int (*get_screen_height_unity)();
-int (*get_screen_width_unity)();
-int scrW = 0;
-int scrH = 0;
-
 #include "hack.h"
 #include "imgui.h"
-
 JNIEnv *g_env = nullptr;
-
 #include "imgui_impl_android.h"
 #include "imgui_impl_opengl3.h"
 #include "KittyMemory/MemoryPatch.h"
 #include "main.h"
+
+#include "ImGuiStuff.h"
+#include "Menu.h"
+
 
 const char* gamePKG = "com.nobodyshot.POLYWAR";
 
@@ -29,20 +26,30 @@ const char* gamePKG = "com.nobodyshot.POLYWAR";
     ret (*orig##func)(__VA_ARGS__); \
     ret my##func(__VA_ARGS__)
 
+bool UnlockG;
 
 HOOK(void, Input, void *thiz, void *ex_ab, void *ex_ac){
     origInput(thiz, ex_ab, ex_ac);
-    DobbyHook((void*)g_env->functions->RegisterNatives, (void*)hook_RegisterNatives, (void **)&old_RegisterNatives);
-    if (init) ImGui_ImplAndroid_HandleInputEvent((AInputEvent *)thiz); 
+    ImGui_ImplAndroid_HandleInputEvent((AInputEvent *)thiz); 
     return;
 }
 
-EGLBoolean (*old_eglSwapBuffers)(EGLDisplay dpy, EGLSurface surface);
+EGLBoolean (*old_eglSwapBuffers)(...);
 EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
-    eglQuerySurface(dpy, surface, EGL_WIDTH, &glWidth);
-    eglQuerySurface(dpy, surface, EGL_HEIGHT, &glHeight);
-    glInit();
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    
+    /*
+    ImGui::Checkbox("Unlock All Guns", &UnlockG);
+    
+    if (UnlockG) {
+        hexPatches.UnG.Modify();
+    } else {
+        hexPatches.UnG.Restore();
+    }
+    */
+    
+    SetupImGui();
+    Menu::DrawImGui();
+    
     return old_eglSwapBuffers(dpy, surface);
 }
 
@@ -166,10 +173,10 @@ void *hack_thread(void *arg) {
     while (!unity_handle or !gl2_handle) {
         sleep(1);
     }
-    get_screen_height_unity = (int (*)()) getAdress((0x68F7C4));
-    get_screen_width_unity = (int (*)()) getAdress((0x68F77C));
-    scrW = get_screen_width_unity();
-    scrH = get_screen_height_unity();
+    
+    Menu::Screen_get_height = (int (*)()) getAdresss((0x68F7C4));
+    Menu::Screen_get_width = (int (*)()) getAdresss((0x68F77C));
+    
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
     if (dlsym_error)
@@ -197,10 +204,10 @@ void *hack_thread(void *arg) {
         DobbyHook(sym_input,(void*)myInput,(void**)&origInput);
     }
     ProcMap il2cppMap;
-    get_screen_height_unity = (int (*)()) getAdress((0x68F7C4));
-    get_screen_width_unity = (int (*)()) getAdress((0x68F77C));
-    scrW = get_screen_width_unity();
-    scrH = get_screen_height_unity();
+    
+    Menu::Screen_get_height = (int (*)()) getAdresss((0x68F7C4));
+    Menu::Screen_get_width = (int (*)()) getAdresss((0x68F77C));
+    
     do {
         il2cppMap = KittyMemory::getLibraryMap(libName);
         sleep(1);
