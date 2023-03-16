@@ -194,8 +194,8 @@ void *hack_thread(void *arg) {
     void *addrH = DobbySymbolResolver("/system/lib/libandroid.so", "ANativeWindow_getHeight");
     DobbyHook(addrH,(void*)_ANativeWindow_getHeight,(void**)&orig_ANativeWindow_getHeight);
     
-    Menu::Screen_get_height = screenHeight
-    Menu::Screen_get_width = screenWidth
+    Menu::Screen_get_height = screenHeight;
+    Menu::Screen_get_width = screenWidth;
     
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
@@ -231,8 +231,8 @@ void *hack_thread(void *arg) {
     void *addrH = DobbySymbolResolver("/system/lib/libandroid.so", "ANativeWindow_getHeight");
     DobbyHook(addrH,(void*)_ANativeWindow_getHeight,(void**)&orig_ANativeWindow_getHeight);
 
-    Menu::Screen_get_height = screenHeight
-    Menu::Screen_get_width = screenWidth
+    Menu::Screen_get_height = screenHeight;
+    Menu::Screen_get_width = screenWidth;
     
     do {
         il2cppMap = KittyMemory::getLibraryMap(libName);
