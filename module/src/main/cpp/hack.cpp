@@ -132,6 +132,20 @@ HOOK_DEF(void*, do_dlopen_V19, const char *name, int flags, const void *extinfo)
     return handle;
 }
 
+
+int32_t (*orig_ANativeWindow_getWidth)(ANativeWindow* window);
+int32_t _ANativeWindow_getWidth(ANativeWindow* window) {
+	screenWidth = orig_ANativeWindow_getWidth(window);
+	return orig_ANativeWindow_getWidth(window);
+}
+
+int32_t (*orig_ANativeWindow_getHeight)(ANativeWindow* window);
+int32_t _ANativeWindow_getHeight(ANativeWindow* window) {
+	screenHeight = orig_ANativeWindow_getHeight(window);
+	return orig_ANativeWindow_getHeight(window);
+}
+
+
 void *hack_thread(void *arg) {
 	int api_level = GetAndroidApiLevel();
    if (api_level < 33) {
@@ -174,8 +188,14 @@ void *hack_thread(void *arg) {
         sleep(1);
     }
     
-    Menu::Screen_get_height = (int (*)()) getAbsoluteAddress("libil2cpp.so", 0x68F7C4);
-    Menu::Screen_get_width = (int (*)()) getAbsoluteAddress("libil2cpp.so", 0x68F77C);
+    void *addrW = DobbySymbolResolver("/system/lib/libandroid.so", "ANativeWindow_getWidth");
+    DobbyHook(addrW,(void*)_ANativeWindow_getWidth,(void**)&orig_ANativeWindow_getWidth);
+
+    void *addrH = DobbySymbolResolver("/system/lib/libandroid.so", "ANativeWindow_getHeight");
+    DobbyHook(addrH,(void*)_ANativeWindow_getHeight,(void**)&orig_ANativeWindow_getHeight);
+    
+    Menu::Screen_get_height = screenHeight
+    Menu::Screen_get_width = screenWidth
     
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
@@ -205,8 +225,14 @@ void *hack_thread(void *arg) {
     }
     ProcMap il2cppMap;
     
-    Menu::Screen_get_height = (int (*)()) getAbsoluteAddress("libil2cpp.so", 0x68F7C4);
-    Menu::Screen_get_width = (int (*)()) getAbsoluteAddress("libil2cpp.so", 0x68F77C);
+    void *addrW = DobbySymbolResolver("/system/lib/libandroid.so", "ANativeWindow_getWidth");
+    DobbyHook(addrW,(void*)_ANativeWindow_getWidth,(void**)&orig_ANativeWindow_getWidth);
+
+    void *addrH = DobbySymbolResolver("/system/lib/libandroid.so", "ANativeWindow_getHeight");
+    DobbyHook(addrH,(void*)_ANativeWindow_getHeight,(void**)&orig_ANativeWindow_getHeight);
+
+    Menu::Screen_get_height = screenHeight
+    Menu::Screen_get_width = screenWidth
     
     do {
         il2cppMap = KittyMemory::getLibraryMap(libName);
