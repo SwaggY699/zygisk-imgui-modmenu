@@ -57,7 +57,7 @@ namespace Menu
             ImGuiIO &io = ImGui::GetIO();
             static bool WantTextInputLast = false;
             ImGui_ImplOpenGL3_NewFrame();
-            ImGui_ImplAndroid_NewFrame(Screen_get_width(), Screen_get_height());;
+            ImGui_ImplAndroid_NewFrame(glWidth, glHeight);
             ImGui::NewFrame();
             DrawMenu();
             ImGui::Render();
