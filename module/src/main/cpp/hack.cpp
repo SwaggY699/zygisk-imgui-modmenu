@@ -29,6 +29,7 @@ const char* gamePKG = "com.nobodyshot.POLYWAR";
 
 bool UnlockG;
 
+bool SetCustomResolution;
 
 int (*old_touches)(void *instance);
 int touches(void* instance){
