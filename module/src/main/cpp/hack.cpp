@@ -32,21 +32,10 @@ const char* gamePKG = "com.nobodyshot.POLYWAR";
 
 bool UnlockG;
 
-int32_t (*orig_ANativeWindow_getWidth)(ANativeWindow* window);
-int32_t _ANativeWindow_getWidth(ANativeWindow* window) {
-	screenWidth = orig_ANativeWindow_getWidth(window);
-	return orig_ANativeWindow_getWidth(window);
-}
-
-int32_t (*orig_ANativeWindow_getHeight)(ANativeWindow* window);
-int32_t _ANativeWindow_getHeight(ANativeWindow* window) {
-	screenHeight = orig_ANativeWindow_getHeight(window);
-	return orig_ANativeWindow_getHeight(window);
-}
 
 HOOK(void, Input, void *thiz, void *ex_ab, void *ex_ac){
     origInput(thiz, ex_ab, ex_ac);
-    ImGui_ImplAndroid_HandleInputEvent((AInputEvent *)thiz, {(float) screenWidth / (float) glWidth, (float) screenHeight / (float) glHeight});
+    ImGui_ImplAndroid_HandleInputEvent((AInputEvent *)thiz, {(float) glWidth, (float) glHeight});
     return;
 }
 
@@ -219,9 +208,6 @@ HOOK_DEF(void*, do_dlopen_V19, const char *name, int flags, const void *extinfo)
 }
 
 
-
-
-
 void *hack_thread(void *arg) {
 	int api_level = GetAndroidApiLevel();
    if (api_level < 33) {
@@ -264,13 +250,6 @@ void *hack_thread(void *arg) {
         sleep(1);
     }
     
-    void *addrW = DobbySymbolResolver("/system/lib/libandroid.so", "ANativeWindow_getWidth");
-    DobbyHook(addrW,(void*)_ANativeWindow_getWidth,(void**)&orig_ANativeWindow_getWidth);
-
-    void *addrH = DobbySymbolResolver("/system/lib/libandroid.so", "ANativeWindow_getHeight");
-    DobbyHook(addrH,(void*)_ANativeWindow_getHeight,(void**)&orig_ANativeWindow_getHeight);
-    
-    
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
     if (dlsym_error)
@@ -298,13 +277,6 @@ void *hack_thread(void *arg) {
         DobbyHook(sym_input,(void*)myInput,(void**)&origInput);
     }
     ProcMap il2cppMap;
-    
-    void *addrW = DobbySymbolResolver("/system/lib/libandroid.so", "ANativeWindow_getWidth");
-    DobbyHook(addrW,(void*)_ANativeWindow_getWidth,(void**)&orig_ANativeWindow_getWidth);
-
-    void *addrH = DobbySymbolResolver("/system/lib/libandroid.so", "ANativeWindow_getHeight");
-    DobbyHook(addrH,(void*)_ANativeWindow_getHeight,(void**)&orig_ANativeWindow_getHeight);
-
     
     do {
         il2cppMap = KittyMemory::getLibraryMap(libName);
