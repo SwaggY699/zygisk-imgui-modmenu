@@ -29,16 +29,7 @@ const char* gamePKG = "com.nobodyshot.POLYWAR";
 
 bool UnlockG;
 
-bool SetCustomResolution;
-
-int (*old_touches)(void *instance);
-int touches(void* instance){
-    ImGuiIO& io = ImGui::GetIO();
-    if (io.WantCaptureMouse) {
-        return 0;
-    }
-    return old_touches(instance);
-}
+bool SetCustomResolution = true;
 
 void (*_SetResolution)(...);
 void SetResolution(int width, int height, bool fullscreen){
@@ -268,7 +259,6 @@ void *hack_thread(void *arg) {
         sleep(1);
     }
     
-    DobbyHook((void*) getAbsoluteAddress("libil2cpp.so",0x126CDD4), (void *) touches, (void **) &old_touches);
     DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0x68FE3C), (void *) SetResolution, (void **) &_SetResolution);
     
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
@@ -299,7 +289,6 @@ void *hack_thread(void *arg) {
     }
     ProcMap il2cppMap;
     
-    DobbyHook((void*) getAbsoluteAddress("libil2cpp.so",0x126CDD4), (void *) touches, (void **) &old_touches);
     DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0x68FE3C), (void *) SetResolution, (void **) &_SetResolution);
     
     do {
