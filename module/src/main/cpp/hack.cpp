@@ -17,10 +17,6 @@ JNIEnv *g_env = nullptr;
 #include "main.h"
 
 #include "ImGuiStuff.h"
-
-auto Screen_SetResolution = (void (*)(int, int, bool)) (getAbsoluteAddress("libil2cpp.so",0x68FE3C));
-Screen_SetResolution(glWidth, glHeight, true);
-
 #include "Menu.h"
 
 
@@ -105,7 +101,11 @@ jint hook_RegisterNatives(JNIEnv* env, jclass klazz, const JNINativeMethod* meth
 
 EGLBoolean (*old_eglSwapBuffers)(EGLDisplay dpy, EGLSurface surface);
 EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
-    eglQuerySurface(dpy, surface, EGL_WIDTH, &glWidth);
+
+auto Screen_SetResolution = (void (*)(int, int, bool)) (getAbsoluteAddress("libil2cpp.so",0x68FE3C));
+Screen_SetResolution(glWidth, glHeight, true);
+
+eglQuerySurface(dpy, surface, EGL_WIDTH, &glWidth);
     eglQuerySurface(dpy, surface, EGL_HEIGHT, &glHeight);
 	
     if (glWidth <= 0 || glHeight <= 0) {
