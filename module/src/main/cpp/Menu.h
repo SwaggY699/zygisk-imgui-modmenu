@@ -4,7 +4,9 @@
 #include "ESP.h"
 namespace Menu
 {
-
+    
+    auto Screen_SetResolution = (void (*)(int, int, bool)) (getAbsoluteAddress("libil2cpp.so",0x68FE3C));
+    Screen_SetResolution(glWidth, glHeight, true);
     ImVec4 color = ImVec4(1, 1, 1, 1);
 
     void DrawMenu()
