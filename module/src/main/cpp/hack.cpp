@@ -31,7 +31,7 @@ bool UnlockG;
 
 HOOK(void, Input, void *thiz, void *ex_ab, void *ex_ac){
     origInput(thiz, ex_ab, ex_ac);
-    ImGui_ImplAndroid_HandleInputEvent((AInputEvent *)thiz, {(float) glWidth, (float) glHeight});
+    ImGui_ImplAndroid_HandleInputEvent((AInputEvent *)thiz);
     return;
 }
 
