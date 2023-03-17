@@ -26,7 +26,27 @@ const char* gamePKG = "com.nobodyshot.POLYWAR";
     ret (*orig##func)(__VA_ARGS__); \
     ret my##func(__VA_ARGS__)
 
+
 bool UnlockG;
+
+
+int (*old_touches)(void *instance);
+int touches(void* instance){
+    ImGuiIO& io = ImGui::GetIO();
+    if (io.WantCaptureMouse) {
+        return 0;
+    }
+    return old_touches(instance);
+}
+
+void (*_SetResolution)(...);
+void SetResolution(int width, int height, bool fullscreen){
+if(SetCustomResolution){
+  width = glWidth;
+ height = glHeight;
+}
+_SetResolution(width, height, fullscreen);
+}
 
 
 HOOK(void, Input, void *thiz, void *ex_ab, void *ex_ac){
@@ -247,6 +267,9 @@ void *hack_thread(void *arg) {
         sleep(1);
     }
     
+    DobbyHook((void*) getAbsoluteAddress("libil2cpp.so",0x126D438), (void *) touches, (void **) &old_touches);
+    DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0x68FE3C), (void *) SetResolution, (void **) &_SetResolution);
+    
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
     if (dlsym_error)
@@ -274,6 +297,9 @@ void *hack_thread(void *arg) {
         DobbyHook(sym_input,(void*)myInput,(void**)&origInput);
     }
     ProcMap il2cppMap;
+    
+    DobbyHook((void*) getAbsoluteAddress("libil2cpp.so",0x126D438), (void *) touches, (void **) &old_touches);
+    DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0x68FE3C), (void *) SetResolution, (void **) &_SetResolution);
     
     do {
         il2cppMap = KittyMemory::getLibraryMap(libName);
