@@ -63,7 +63,7 @@ namespace Menu
             DrawMenu();
             ImGui::Render();
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-            
+            /*
             io.KeysDown[io.KeyMap[ImGuiKey_UpArrow]] = false;
             io.KeysDown[io.KeyMap[ImGuiKey_DownArrow]] = false;
             io.KeysDown[io.KeyMap[ImGuiKey_LeftArrow]] = false;
@@ -78,7 +78,7 @@ namespace Menu
             io.KeysDown[io.KeyMap[ImGuiKey_Home]] = false;
             io.KeysDown[io.KeyMap[ImGuiKey_End]] = false;
             io.KeysDown[io.KeyMap[ImGuiKey_Insert]] = false;
-            
+            */
             ImGui::EndFrame();
         }
     }
