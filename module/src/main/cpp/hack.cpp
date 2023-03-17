@@ -17,6 +17,10 @@ JNIEnv *g_env = nullptr;
 #include "main.h"
 
 #include "ImGuiStuff.h"
+
+auto Screen_SetResolution = (void (*)(int, int, bool)) (getAbsoluteAddress("libil2cpp.so",0x68FE3C));
+Screen_SetResolution(glWidth, glHeight, true);
+
 #include "Menu.h"
 
 
