@@ -677,7 +677,7 @@ void SetupImGui()
         io.KeyMap[ImGuiKey_End] = 123;
         io.KeyMap[ImGuiKey_Insert] = 124;
 
-        SetDarkGreenBlueTheme();
+        SetAnotherDarkThemeReally();
 
         ImGui::GetStyle().ScaleAllSizes(3.0f);
 
