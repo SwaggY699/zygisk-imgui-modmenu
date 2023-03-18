@@ -3,40 +3,76 @@
 
 #include "../imgui/imgui_internal.h"
 
-namespace ESP {
-    void DrawLine(ImVec2 start, ImVec2 end, ImVec4 color) {
-        auto background = ImGui::GetBackgroundDrawList();
-        if(background) {
-            background->AddLine(start, end, ImColor(color.x,color.y,color.z,color.w));
-        }
-    }
-    void DrawBox(ImVec4 rect, ImVec4 color) {
-        ImVec2 v1(rect.x, rect.y);
-        ImVec2 v2(rect.x + rect.z, rect.y);
-        ImVec2 v3(rect.x + rect.z, rect.y + rect.w);
-        ImVec2 v4(rect.x, rect.y + rect.w);
+#define ARGB(a, r, g, b) 0 | a << 24 | r << 16 | g << 8 | b
 
-        DrawLine(v1, v2, color);
-        DrawLine(v2, v3, color);
-        DrawLine(v3, v4, color);
-        DrawLine(v4, v1, color);
-    }
-    void DrawCircle(float X, float Y, float radius, bool filled, ImVec4 color) {
-        auto background = ImGui::GetBackgroundDrawList();
-        if(background) {
-            if(filled) {
-                background->AddCircleFilled(ImVec2(X, Y), radius, ImColor(color.x,color.y,color.z,color.w));
-            } else {
-                background->AddCircle(ImVec2(X, Y), radius, ImColor(color.x,color.y,color.z,color.w));
-            }
-        }
-    }
-    void DrawText(ImVec2 position, ImVec4 color, const char *text) {
-        auto background = ImGui::GetBackgroundDrawList();
-        if(background) {
-            background->AddText(NULL, 25.0f, position, ImColor(color.x,color.y,color.z,color.w), text);
-        }
-    }
+float Rainbow() {
+	static float x = 0, y = 0;
+	static float r = 0, g = 0, b = 0;
+	if (y >= 0.0f && y < 255.0f) {
+		r = 255.0f;
+		g = 0.0f;
+		b = x;
+	} else if (y >= 255.0f && y < 510.0f) {
+		r = 255.0f - x;
+		g = 0.0f;
+		b = 255.0f;
+	} else if (y >= 510.0f && y < 765.0f) {
+		r = 0.0f;
+		g = x;
+		b = 255.0f;
+	} else if (y >= 765.0f && y < 1020.0f) {
+		r = 0.0f;
+		g = 255.0f;
+		b = 255.0f - x;
+	} else if (y >= 1020.0f && y < 1275.0f) {
+		r = x;
+		g = 255.0f;
+		b = 0.0f;
+	} else if (y >= 1275.0f && y < 1530.0f) {
+		r = 255.0f;
+		g = 255.0f - x;
+		b = 0.0f;
+	}
+	x+= 0.25f; 
+	if (x >= 255.0f)
+		x = 0.0f;
+	y+= 0.25f;
+	if (y > 1530.0f)
+		y = 0.0f;
+	return ARGB(255, (int)r, (int)g, (int)b);
 }
+
+class ESP {
+	public:
+	
+	void drawText(const char *text, float X, float Y, float size, long color) {
+		ImGui::GetBackgroundDrawList()->AddText(NULL, size, ImVec2(X, Y), color, text);
+	}
+	
+	void drawLine(float startX, float startY, float stopX, float stopY, float thicc, long color) {
+		ImGui::GetBackgroundDrawList()->AddLine(ImVec2(startX, startY), ImVec2(stopX, stopY), color, thicc);
+	}
+	
+	void drawBorder(float X, float Y, float width, float height, float thicc, long color) {
+		ImGui::GetBackgroundDrawList()->AddRect(ImVec2(X, Y), ImVec2(X + width, Y + height), color, thicc);
+	}
+	
+	void drawBox(float X, float Y, float width, float height, float thicc, long color) {
+		ImGui::GetBackgroundDrawList()->AddRectFilled(ImVec2(X, Y), ImVec2(X + width, Y + height), color, thicc);
+	}
+	
+	void drawCornerBox(int x, int y, int w, int h, float thickness, long color) {
+		int iw = w / 4;
+		int ih = h / 4;
+		
+		ImGui::GetBackgroundDrawList()->AddLine(ImVec2(x, y), ImVec2(x + iw, y), color, thickness);
+		ImGui::GetBackgroundDrawList()->AddLine(ImVec2(x, y), ImVec2(x, y + ih), color, thickness);
+		ImGui::GetBackgroundDrawList()->AddLine(ImVec2(x + w - 1, y), ImVec2(x + w - 1, y + ih), color, thickness);
+		ImGui::GetBackgroundDrawList()->AddLine(ImVec2(x, y + h), ImVec2(x + iw, y + h), color, thickness);
+		ImGui::GetBackgroundDrawList()->AddLine(ImVec2(x + w - iw, y + h), ImVec2(x + w, y + h), color, thickness);
+		ImGui::GetBackgroundDrawList()->AddLine(ImVec2(x, y + h - ih), ImVec2(x, y + h), color, thickness);
+		ImGui::GetBackgroundDrawList()->AddLine(ImVec2(x + w - 1, y + h - ih), ImVec2(x + w - 1, y + h), color, thickness);
+	}
+};
 
 #endif ImGuiAndroid_ESP
