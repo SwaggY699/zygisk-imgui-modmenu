@@ -14,9 +14,13 @@ JNIEnv *g_env = nullptr;
 #include "imgui_impl_android.h"
 #include "imgui_impl_opengl3.h"
 #include "KittyMemory/MemoryPatch.h"
+
 #include "main.h"
 
 #include "ImGuiStuff.h"
+
+#include "Call_ESP.h"
+
 #include "Menu.h"
 
 
@@ -110,8 +114,6 @@ jint hook_RegisterNatives(JNIEnv* env, jclass klazz, const JNINativeMethod* meth
 	}
 	return old_RegisterNatives(env, klazz, methods, methodcount);
 }
-
-#include "Call_ESP.h"
 
 EGLBoolean (*old_eglSwapBuffers)(EGLDisplay dpy, EGLSurface surface);
 EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
