@@ -111,6 +111,8 @@ jint hook_RegisterNatives(JNIEnv* env, jclass klazz, const JNINativeMethod* meth
 	return old_RegisterNatives(env, klazz, methods, methodcount);
 }
 
+#include "Call_ESP.h"
+
 EGLBoolean (*old_eglSwapBuffers)(EGLDisplay dpy, EGLSurface surface);
 EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
 
@@ -259,7 +261,7 @@ void *hack_thread(void *arg) {
         sleep(1);
     }
     
-    DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0x68FE3C), (void *) SetResolution, (void **) &_SetResolution);
+    DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0xAEC0B278), (void *) SetResolution, (void **) &_SetResolution);
     
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
@@ -289,7 +291,7 @@ void *hack_thread(void *arg) {
     }
     ProcMap il2cppMap;
     
-    DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0x68FE3C), (void *) SetResolution, (void **) &_SetResolution);
+    DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0xAEC0B278), (void *) SetResolution, (void **) &_SetResolution);
     
     do {
         il2cppMap = KittyMemory::getLibraryMap(libName);
