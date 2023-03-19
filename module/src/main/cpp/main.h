@@ -78,6 +78,8 @@ struct My_Patches {
 
 void offsets_load() {
   
+  DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0xAEC0B278), (void *) SetResolution, (void **) &_SetResolution);
+  
   hexPatches.UnG = MemoryPatch::createWithHex(targetLibName, 0x140B390, OBFUSCATE("01 00 A0 E3 1E FF 2F E1"));
   
 pthread_exit(nullptr);
