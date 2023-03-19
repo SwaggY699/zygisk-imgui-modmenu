@@ -15,6 +15,8 @@ JNIEnv *g_env = nullptr;
 #include "imgui_impl_opengl3.h"
 #include "KittyMemory/MemoryPatch.h"
 
+#include "Il2Cpp.h"
+
 #include "main.h"
 
 #include "ImGuiStuff.h"
