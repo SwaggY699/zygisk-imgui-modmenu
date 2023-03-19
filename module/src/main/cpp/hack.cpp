@@ -38,13 +38,13 @@ bool UnlockG;
 
 bool SetCustomResolution = true;
 
-void (*_SetResolution)(...);
-void SetResolution(int width, int height, bool fullscreen){
+void (*_SetResolutionn)(...);
+void SetResolutionn(int width, int height, bool fullscreen){
 if(SetCustomResolution){
   width = glWidth;
  height = glHeight;
 }
-_SetResolution(width, height, fullscreen);
+_SetResolutionn(width, height, fullscreen);
 }
 
 
