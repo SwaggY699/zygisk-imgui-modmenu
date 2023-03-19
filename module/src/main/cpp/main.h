@@ -74,7 +74,7 @@ uintptr_t il2cppMap;
 #define targetLib OBFUSCATE("libil2cpp.so")
 
 struct My_Patches {
-    MemoryPatch logi1,logi2,logi3,logi4;
+    MemoryPatch login1,login2,login3,login4;
 } hexPatches;
 
 
@@ -82,15 +82,15 @@ void offsets_load() {
   
   //DobbyHook((void *) (IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.CoreModule.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Screen"), OBFUSCATE("SetResolution"), 3)), (void *) SetResolutionn, (void **) &_SetResolutionn);
   
-  hexPatches.logi1 = MemoryPatch::createWithHex(targetLibName, 0x1C37E34, OBFUSCATE("00 00 A0 E3 1E FF 2F E1"));
-  hexPatches.logi2 = MemoryPatch::createWithHex(targetLibName, 0x1B831D8, OBFUSCATE("00 00 A0 E3 1E FF 2F E1"));
-  hexPatches.logi3 = MemoryPatch::createWithHex(targetLibName, 0x1B83488, OBFUSCATE("00 00 A0 E3 1E FF 2F E1"));
-  hexPatches.logi4 = MemoryPatch::createWithHex(targetLibName, 0x1B82DF4, OBFUSCATE("00 00 A0 E3 1E FF 2F E1"));
+  hexPatches.login1 = MemoryPatch::createWithHex(targetLibName, 0x1C37E34, OBFUSCATE("00 00 A0 E3 1E FF 2F E1"));
+  hexPatches.login2 = MemoryPatch::createWithHex(targetLibName, 0x1B831D8, OBFUSCATE("00 00 A0 E3 1E FF 2F E1"));
+  hexPatches.login3 = MemoryPatch::createWithHex(targetLibName, 0x1B83488, OBFUSCATE("00 00 A0 E3 1E FF 2F E1"));
+  hexPatches.login4 = MemoryPatch::createWithHex(targetLibName, 0x1B82DF4, OBFUSCATE("00 00 A0 E3 1E FF 2F E1"));
   
-  logi1.Modify();
-  logi2.Modify();
-  logi3.Modify();
-  logi4.Modify();
+  login1.Modify();
+  login2.Modify();
+  login3.Modify();
+  login4.Modify();
   
 pthread_exit(nullptr);
 }
