@@ -293,11 +293,13 @@ void *hack_thread(void *arg) {
         DobbyHook(sym_input,(void*)myInput,(void**)&origInput);
     }
     
-    ProcMap il2cppMap;
-    do {
-        il2cppMap = KittyMemory::getLibraryMap(libName);
-        sleep(1);
-    } while (!il2cppMap.isValid());
+    while (!il2cppMap) {
+    il2cppMap = Tools::GetBaseAddress(targetLib);
+    sleep(10);
+    }
+    sleep(10);
+    IL2Cpp::Il2CppAttach();
+    Config.InitImGui.bInitDone = true;
     
     offsets_load();
     
