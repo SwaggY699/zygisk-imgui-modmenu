@@ -16,6 +16,7 @@ JNIEnv *g_env = nullptr;
 #include "KittyMemory/MemoryPatch.h"
 
 #include "Il2Cpp.h"
+#include "Tools.h"
 
 #include "main.h"
 
@@ -265,8 +266,6 @@ void *hack_thread(void *arg) {
         sleep(1);
     }
     
-    DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0xAEC0B278), (void *) SetResolution, (void **) &_SetResolution);
-    
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
     if (dlsym_error)
@@ -293,15 +292,15 @@ void *hack_thread(void *arg) {
     if (NULL != sym_input) {
         DobbyHook(sym_input,(void*)myInput,(void**)&origInput);
     }
+    
     ProcMap il2cppMap;
-    
-    DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0xAEC0B278), (void *) SetResolution, (void **) &_SetResolution);
-    
     do {
         il2cppMap = KittyMemory::getLibraryMap(libName);
         sleep(1);
     } while (!il2cppMap.isValid());
+    
     offsets_load();
+    
     return nullptr;
     }
 }
