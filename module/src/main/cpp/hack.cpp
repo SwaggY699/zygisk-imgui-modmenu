@@ -14,15 +14,15 @@ JNIEnv *g_env = nullptr;
 #include "imgui_impl_android.h"
 #include "imgui_impl_opengl3.h"
 #include "KittyMemory/MemoryPatch.h"
-
+/*
 #include "Il2Cpp.h"
 #include "Tools.h"
-
+*/
 #include "main.h"
 
 #include "ImGuiStuff.h"
 
-#include "Call_ESP.h"
+//#include "Call_ESP.h"
 
 #include "Menu.h"
 
@@ -266,6 +266,8 @@ void *hack_thread(void *arg) {
         sleep(1);
     }
     
+    DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0xAEC0B278), (void *) SetResolutionn, (void **) &_SetResolutionn);
+    
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
     if (dlsym_error)
@@ -293,15 +295,14 @@ void *hack_thread(void *arg) {
         DobbyHook(sym_input,(void*)myInput,(void**)&origInput);
     }
     
-    while (!il2cppMap) {
-    il2cppMap = Tools::GetBaseAddress(targetLib);
-    sleep(10);
-    }
-    sleep(10);
-    IL2Cpp::Il2CppAttach();
-    Config.InitImGui.bInitDone = true;
+    ProcMap il2cppMap;
     
-    DobbyHook((void *) (IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.CoreModule.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Screen"), OBFUSCATE("SetResolution"), 3)), (void *) SetResolutionn, (void **) &_SetResolutionn);
+    DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0xAEC0B278), (void *) SetResolutionn, (void **) &_SetResolutionn);
+    
+    do {
+        il2cppMap = KittyMemory::getLibraryMap(libName);
+        sleep(1);
+    } while (!il2cppMap.isValid());
     
     offsets_load();
     
