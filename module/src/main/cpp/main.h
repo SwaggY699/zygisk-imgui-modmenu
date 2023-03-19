@@ -5,7 +5,6 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include<list>
 #include<vector>
 #include<string.h>
 #include<pthread.h>
