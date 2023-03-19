@@ -301,6 +301,8 @@ void *hack_thread(void *arg) {
     IL2Cpp::Il2CppAttach();
     Config.InitImGui.bInitDone = true;
     
+    DobbyHook((void *) (IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.CoreModule.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Screen"), OBFUSCATE("SetResolution"), 3)), (void *) SetResolutionn, (void **) &_SetResolutionn);
+    
     offsets_load();
     
     return nullptr;
