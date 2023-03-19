@@ -1,6 +1,8 @@
 #ifndef MENU
 #define MENU
 
+bool zzz;
+
 #include "ESP.h"
 namespace Menu
 {
@@ -18,7 +20,7 @@ namespace Menu
             {
                 if (ImGui::BeginTabItem("ESP"))
                 {
-                 ImGui::Checkbox(OBFUSCATE("test"), &nullptr);
+                 ImGui::Checkbox(OBFUSCATE("test"), &zzz);
                 /*ImGui::Checkbox(OBFUSCATE("ESP"), &Enable_ESP);
 				ImGui::Checkbox(OBFUSCATE("Line"), &PlayerLine);
 				ImGui::Checkbox(OBFUSCATE("Box"), &PlayerBox);
@@ -43,7 +45,7 @@ namespace Menu
             ImGui_ImplOpenGL3_NewFrame();
             ImGui_ImplAndroid_NewFrame(glWidth, glHeight);
             ImGui::NewFrame();
-            DrawESP(ImGui::GetBackgroundDrawList());
+            //DrawESP(ImGui::GetBackgroundDrawList());
             DrawMenu();
             ImGui::Render();
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
