@@ -22,6 +22,17 @@ JNIEnv *g_env = nullptr;
 
 #include "ImGuiStuff.h"
 
+bool SetCustomResolution = true;
+
+void (*_SetResolutionn)(...);
+void SetResolutionn(int width, int height, bool fullscreen){
+if(SetCustomResolution){
+  width = glWidth;
+ height = glHeight;
+}
+_SetResolutionn(width, height, fullscreen);
+}
+
 //#include "Call_ESP.h"
 
 #include "Menu.h"
@@ -35,17 +46,6 @@ const char* gamePKG = "com.ngame.allstar.eu";
 
 
 bool UnlockG;
-
-bool SetCustomResolution = true;
-
-void (*_SetResolutionn)(...);
-void SetResolutionn(int width, int height, bool fullscreen){
-if(SetCustomResolution){
-  width = glWidth;
- height = glHeight;
-}
-_SetResolutionn(width, height, fullscreen);
-}
 
 
 HOOK(void, Input, void *thiz, void *ex_ab, void *ex_ac){
