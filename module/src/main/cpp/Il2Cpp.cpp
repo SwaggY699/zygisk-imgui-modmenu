@@ -3,7 +3,7 @@
 // Created by GHr_Ryuuka on 05/12/2021.
 //
 
-#include "Includes/obfuscate.h"
+#include "Obfuscate.h"
 #include "Il2cpp.h"
 
 #define targetLib OBFUSCATE("libil2cpp.so")
