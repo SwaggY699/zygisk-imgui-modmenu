@@ -22,23 +22,12 @@ JNIEnv *g_env = nullptr;
 
 #include "ImGuiStuff.h"
 
-bool SetCustomResolution = true;
-
-void (*_SetResolutionn)(...);
-void SetResolutionn(int width, int height, bool fullscreen){
-if(SetCustomResolution){
-  width = glWidth;
- height = glHeight;
-}
-_SetResolutionn(width, height, fullscreen);
-}
-
 //#include "Call_ESP.h"
 
 #include "Menu.h"
 
 
-const char* gamePKG = "com.ngame.allstar.eu";
+const char* gamePKG = "com.criticalforceentertainment.criticalops";
 
 #define HOOK(ret, func, ...) \
     ret (*orig##func)(__VA_ARGS__); \
@@ -52,6 +41,17 @@ HOOK(void, Input, void *thiz, void *ex_ab, void *ex_ac){
     origInput(thiz, ex_ab, ex_ac);
     ImGui_ImplAndroid_HandleInputEvent((AInputEvent *)thiz);
     return;
+}
+
+bool SetCustomResolution = true;
+
+void (*_SetResolutionn)(...);
+void SetResolutionn(int width, int height, bool fullscreen){
+if(SetCustomResolution){
+  width = glWidth;
+ height = glHeight;
+}
+_SetResolutionn(width, height, fullscreen);
 }
 
 jboolean (*orig_unity__nativeInjectEvent)(JNIEnv *env, jobject object, jobject inputEvent);
