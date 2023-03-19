@@ -26,7 +26,7 @@ JNIEnv *g_env = nullptr;
 #include "Menu.h"
 
 
-const char* gamePKG = "com.nobodyshot.POLYWAR";
+const char* gamePKG = "com.ngame.allstar.eu";
 
 #define HOOK(ret, func, ...) \
     ret (*orig##func)(__VA_ARGS__); \
