@@ -18,13 +18,14 @@ namespace Menu
             {
                 if (ImGui::BeginTabItem("ESP"))
                 {
-                ImGui::Checkbox(OBFUSCATE("ESP"), &Enable_ESP);
+                 ImGui::Checkbox(OBFUSCATE("test"), &nullptr);
+                /*ImGui::Checkbox(OBFUSCATE("ESP"), &Enable_ESP);
 				ImGui::Checkbox(OBFUSCATE("Line"), &PlayerLine);
 				ImGui::Checkbox(OBFUSCATE("Box"), &PlayerBox);
 				ImGui::Checkbox(OBFUSCATE("Health"), &PlayerHealth);	
 				ImGui::Checkbox(OBFUSCATE("Name"), &PlayerName);
 				ImGui::Checkbox(OBFUSCATE("Distance"), &PlayerDistance);
-		     	ImGui::Checkbox(OBFUSCATE("Alert"), &PlayerAlert);		
+		     	ImGui::Checkbox(OBFUSCATE("Alert"), &PlayerAlert); */
 		    	ImGui::EndTabItem();
                 }
                 
