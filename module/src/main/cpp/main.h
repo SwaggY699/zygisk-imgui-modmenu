@@ -71,6 +71,7 @@ const char *libNames = f777.c_str();
 #include "StrEnc.h"
 
 uintptr_t il2cppMap;
+#define targetLib OBFUSCATE("libil2cpp.so")
 
 struct My_Patches {
     MemoryPatch UnG;
@@ -79,9 +80,9 @@ struct My_Patches {
 
 void offsets_load() {
   
-  DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0xAEC0B278), (void *) SetResolution, (void **) &_SetResolution);
+  DobbyHook((void *) (IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.CoreModule.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Screen"), OBFUSCATE("SetResolution"), 3)), (void *) SetResolution, (void **) &_SetResolution);
   
-  hexPatches.UnG = MemoryPatch::createWithHex(targetLibName, 0x140B390, OBFUSCATE("01 00 A0 E3 1E FF 2F E1"));
+  //hexPatches.UnG = MemoryPatch::createWithHex(targetLibName, 0x140B390, OBFUSCATE("01 00 A0 E3 1E FF 2F E1"));
   
 pthread_exit(nullptr);
 }
