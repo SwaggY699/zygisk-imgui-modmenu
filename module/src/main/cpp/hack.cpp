@@ -266,7 +266,7 @@ void *hack_thread(void *arg) {
         sleep(1);
     }
     
-    DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0xAEC0B278), (void *) SetResolutionn, (void **) &_SetResolutionn);
+    DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0x1A16B5C), (void *) SetResolutionn, (void **) &_SetResolutionn);
     
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
@@ -297,7 +297,7 @@ void *hack_thread(void *arg) {
     
     ProcMap il2cppMap;
     
-    DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0xAEC0B278), (void *) SetResolutionn, (void **) &_SetResolutionn);
+    DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0x1A16B5C), (void *) SetResolutionn, (void **) &_SetResolutionn);
     
     do {
         il2cppMap = KittyMemory::getLibraryMap(libName);
