@@ -82,10 +82,10 @@ void offsets_load() {
   
   //DobbyHook((void *) (IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.CoreModule.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Screen"), OBFUSCATE("SetResolution"), 3)), (void *) SetResolutionn, (void **) &_SetResolutionn);
   
-  hexPatches.logi1 = MemoryPatch::createWithHex(targetLibName, 0x140B390, OBFUSCATE("00 00 A0 E3 1E FF 2F E1"));
-  hexPatches.logi2 = MemoryPatch::createWithHex(targetLibName, 0x140B390, OBFUSCATE("00 00 A0 E3 1E FF 2F E1"));
-  hexPatches.logi3 = MemoryPatch::createWithHex(targetLibName, 0x140B390, OBFUSCATE("00 00 A0 E3 1E FF 2F E1"));
-  hexPatches.logi4 = MemoryPatch::createWithHex(targetLibName, 0x140B390, OBFUSCATE("00 00 A0 E3 1E FF 2F E1"));
+  hexPatches.logi1 = MemoryPatch::createWithHex(targetLibName, 0x1C37E34, OBFUSCATE("00 00 A0 E3 1E FF 2F E1"));
+  hexPatches.logi2 = MemoryPatch::createWithHex(targetLibName, 0x1B831D8, OBFUSCATE("00 00 A0 E3 1E FF 2F E1"));
+  hexPatches.logi3 = MemoryPatch::createWithHex(targetLibName, 0x1B83488, OBFUSCATE("00 00 A0 E3 1E FF 2F E1"));
+  hexPatches.logi4 = MemoryPatch::createWithHex(targetLibName, 0x1B82DF4, OBFUSCATE("00 00 A0 E3 1E FF 2F E1"));
   
   logi1.Modify();
   logi2.Modify();
