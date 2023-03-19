@@ -70,6 +70,7 @@ const char *libNames = f777.c_str();
 #include "Rect.h"
 #include "StrEnc.h"
 
+uintptr_t il2cppMap;
 
 struct My_Patches {
     MemoryPatch UnG;
