@@ -285,7 +285,7 @@ void *hack_thread(void *arg) {
     */
     
     while (!il2cppMap) {
-       il2cppMap = Tools::GetBaseAddress(libName);
+       il2cppMap = Tools::GetBaseAddress("libil2cpp.so");
        sleep(10);
     }
     sleep(10);
