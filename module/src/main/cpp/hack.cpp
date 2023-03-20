@@ -19,6 +19,7 @@ JNIEnv *g_env = nullptr;
 #include "Tools.h"
 */
 #include "AutoHook.h"
+#include "StrSdk"
 
 #include "main.h"
 
