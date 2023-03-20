@@ -26,6 +26,16 @@ JNIEnv *g_env = nullptr;
 
 #include "Menu.h"
 
+//
+struct sConfig {
+	struct sInitImGui {
+		bool initImGui;
+		bool bInitDone;
+	};
+	sInitImGui InitImGui;
+};
+sConfig Config{0};
+//
 
 const char* gamePKG = "com.nobodyshot.POLYWAR";
 
