@@ -82,7 +82,7 @@ void offsets_load() {
   
   //DobbyHook((void *) (IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.CoreModule.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Screen"), OBFUSCATE("SetResolution"), 3)), (void *) SetResolutionn, (void **) &_SetResolutionn);
   
-  hexPatches.test1 = MemoryPatch::createWithHex(targetLibName, 0xAD2F41C8, OBFUSCATE("01 00 A0 E3 1E FF 2F E1"));
+  //hexPatches.test1 = MemoryPatch::createWithHex(targetLibName, 0xAD2F41C8, OBFUSCATE("01 00 A0 E3 1E FF 2F E1"));
   
 pthread_exit(nullptr);
 }
