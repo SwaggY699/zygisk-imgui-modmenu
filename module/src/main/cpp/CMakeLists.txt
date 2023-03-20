@@ -56,7 +56,7 @@ set(IMGUI_SRC
     imgui/backends/imgui_impl_opengl3.cpp
 )
 
-add_library(${MODULE_NAME} SHARED main.cpp Il2Cpp.cpp Tools.cpp hack.cpp ${IMGUI_SRC} ${xdl-src} KittyMemory/KittyMemory.cpp KittyMemory/KittyUtils.cpp KittyMemory/MemoryBackup.cpp KittyMemory/MemoryPatch.cpp)
+add_library(${MODULE_NAME} SHARED main.cpp hack.cpp ${IMGUI_SRC} ${xdl-src} KittyMemory/KittyMemory.cpp KittyMemory/KittyUtils.cpp KittyMemory/MemoryBackup.cpp KittyMemory/MemoryPatch.cpp)
 
 if(NOT TARGET dobby)
 set(DOBBY_DIR Dobby)
