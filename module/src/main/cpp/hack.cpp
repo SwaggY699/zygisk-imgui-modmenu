@@ -18,9 +18,10 @@ JNIEnv *g_env = nullptr;
 #include "Il2Cpp.h"
 #include "Tools.h"
 */
-#include "AutoHook.h"
 
 #include "main.h"
+
+#include "AutoHook.h"
 
 #include "ImGuiStuff.h"
 
