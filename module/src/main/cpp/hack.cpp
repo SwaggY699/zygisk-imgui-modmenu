@@ -19,7 +19,6 @@ JNIEnv *g_env = nullptr;
 #include "Tools.h"
 */
 #include "AutoHook.h"
-#include "StrSdk"
 
 #include "main.h"
 
@@ -269,6 +268,10 @@ void *hack_thread(void *arg) {
     //DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0x68FE3C), (void *) SetResolutionn, (void **) &_SetResolutionn);
     //DobbyHook((void *) (uintptr_t)IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.CoreModule.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Screen") , OBFUSCATE("SetResolution"), 3), (void *) SetResolutionn, (void **) &_SetResolutionn);
     
+    auto Screen = new LoadClass("UnityEngine", OBFUSCATE("Screen"));
+    DWORD ThisScreen = Screen->GetMethodOffsetByName(OBFUSCATE("SetResolution"), 3);  
+    DobbyHook((void *) ThisScreen, (void *) SetResolutionn, (void **) &_SetResolutionn);
+    
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
     if (dlsym_error)
@@ -302,6 +305,10 @@ void *hack_thread(void *arg) {
     }
     
     //DobbyHook((void *) (uintptr_t)IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.CoreModule.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Screen") , OBFUSCATE("SetResolution"), 3), (void *) SetResolutionn, (void **) &_SetResolutionn);
+    
+    auto Screen = new LoadClass("UnityEngine", OBFUSCATE("Screen"));
+    DWORD ThisScreen = Screen->GetMethodOffsetByName(OBFUSCATE("SetResolution"), 3);  
+    DobbyHook((void *) ThisScreen, (void *) SetResolutionn, (void **) &_SetResolutionn);
     
     offsets_load();
     
