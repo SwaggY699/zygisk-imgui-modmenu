@@ -20,234 +20,108 @@ struct sConfig {
 
 sConfig Config{0};
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Camera {
+class Transform;
+
+class Component {
+	public:
+	
+	Transform *get_transform() {
+		Transform *(*get_transform_)(Component *component) = (Transform *(*)(Component *)) (Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.CoreModule.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Component"), OBFUSCATE("get_transform")));
+		return get_transform_(this);
+	}
+};
+
+class Transform : public Component {
+	public:
+	
+	Vector3 get_position() {
+		Vector3 (*get_position_)(Transform *transform) = (Vector3 (*)(Transform *)) (Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.CoreModule.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Transform"), OBFUSCATE("get_position")));
+		return get_position_(this);
+    }
+};
+
+class Camera : public Component {
 	public:
 	
 	static Camera *get_main() {
-		Camera *(*get_main_) () = (Camera *(*)()) (IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Camera"), OBFUSCATE("get_main"), 0));
+		Camera *(*get_main_)() = (Camera *(*)()) (Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.CoreModule.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Camera"), OBFUSCATE("get_main")));
 		return get_main_();
 	}
 	
 	Vector3 WorldToScreenPoint(Vector3 position) {
-		Vector3 (*WorldToScreenPoint_)(Camera *camera, Vector3 position) = (Vector3 (*)(Camera *, Vector3)) (IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Camera"), OBFUSCATE("WorldToScreenPoint"), 1));
+		Vector3 (*WorldToScreenPoint_)(Camera* camera, Vector3 position) = (Vector3 (*)(Camera *, Vector3)) (Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.CoreModule.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Camera"), OBFUSCATE("WorldToScreenPoint"), 1));
 		return WorldToScreenPoint_(this, position);
 	}
 };
 
-class ValueLinkerComponent {
+class Character {
+	
+}
+
+class GameSystem {
 	public:
 	
-	int get_actorHp() {
-		int (*get_actorHp_)(ValueLinkerComponent *objLinkerWrapper) = (int (*)(ValueLinkerComponent *)) (IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("Project_d.dll"), OBFUSCATE("Kyrios.Actor"), OBFUSCATE("ValueLinkerComponent"), OBFUSCATE("get_actorHp"), 0));
-		return get_actorHp_(this);
-	}
-	
-	int get_actorHpTotal() {
-		int (*get_actorHpTotal_)(ValueLinkerComponent *objLinkerWrapper) = (int (*)(ValueLinkerComponent *)) (IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("Project_d.dll"), OBFUSCATE("Kyrios.Actor"), OBFUSCATE("ValueLinkerComponent"), OBFUSCATE("get_actorHpTotal"), 0));
-		return get_actorHpTotal_(this);
-	}	
+	FasterDictionary<int, Character> m_playerCharacters;
 };
 
-class CActorInfo {
+class GameplayModule {
 	public:
 	
-	String *ActorName() {
-		return *(String **) ((uintptr_t) this + IL2Cpp::Il2CppGetFieldOffset(OBFUSCATE("Project_d.dll"), OBFUSCATE("Assets.Scripts.GameLogic"), OBFUSCATE("CActorInfo"), OBFUSCATE("ActorName")));
-	}
-};
-
-class ActorLinker {
-	public:
-	
-	ValueLinkerComponent *ValueComponent() {
-		return *(ValueLinkerComponent **) ((uintptr_t) this + IL2Cpp::Il2CppGetFieldOffset(OBFUSCATE("Project_d.dll"), OBFUSCATE("Kyrios.Actor"), OBFUSCATE("ActorLinker"), OBFUSCATE("ValueComponent")));
+	static GameplayModule *get_Instance() {
+		GameplayModule *(*get_Instance_)() = (GameplayModule *(*)()) (m_IL2Cpp + 0x68f678);
+		//(Il2CppGetMethodOffset(OBFUSCATE("Assembly-CSharp.dll"), OBFUSCATE("CriticalOps.Gameplay"), OBFUSCATE("GameplayModule"), OBFUSCATE("get_Instance")));
+		return get_Instance_();
 	}
 	
-	Vector3 get_position() {
-		Vector3 (*get_position_)(ActorLinker *linker) = (Vector3 (*)(ActorLinker *)) (IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("Project_d.dll"), OBFUSCATE("Kyrios.Actor"), OBFUSCATE("ActorLinker"), OBFUSCATE("get_position"), 0));
-		return get_position_(this);
+	GameSystem *get_Game() {
+		GameSystem *(*get_Game_)(GameplayModule *gameplayModule) = (GameSystem *(*)(GameplayModule *)) (m_IL2Cpp + 0x68f76c);
+		//(Il2CppGetMethodOffset(OBFUSCATE("Assembly-CSharp.dll"), OBFUSCATE("CriticalOps.Gameplay"), OBFUSCATE("GameplayModule"), OBFUSCATE("get_Instance")));
+		return get_Game_(this);
 	}
 	
-	CActorInfo *CharInfo() {
-		return *(CActorInfo **) ((uintptr_t) this + IL2Cpp::Il2CppGetFieldOffset(OBFUSCATE("Project_d.dll"), OBFUSCATE("Kyrios.Actor"), OBFUSCATE("ActorLinker"), OBFUSCATE("CharInfo")));
-	}
-	
-	bool IsHostCamp() {
-		bool (*IsHostCamp_)(ActorLinker *linker) = (bool (*)(ActorLinker *)) (IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("Project_d.dll"), OBFUSCATE("Kyrios.Actor"), OBFUSCATE("ActorLinker"), OBFUSCATE("IsHostCamp"), 0));
-		return IsHostCamp_(this);
-	}
-};
-
-class ActorManager {
-	public:
-	
-	List<ActorLinker *> *GetAllHeros() {
-		List<ActorLinker *> *(*_GetAllHeros)(ActorManager *actorManager) = (List<ActorLinker *> *(*)(ActorManager *)) (IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("Project_d.dll"), OBFUSCATE("Kyrios.Actor"), OBFUSCATE("ActorManager"), OBFUSCATE("GetAllHeros"), 0));
-		return _GetAllHeros(this);
-	}
-};
-
-class KyriosFramework {
-	public:
-	
-	static ActorManager *get_actorManager() {
-		auto get_actorManager_ = (ActorManager *(*)()) (IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("Project_d.dll"), OBFUSCATE("Kyrios"), OBFUSCATE("KyriosFramework"), OBFUSCATE("get_actorManager"), 0));
-		return get_actorManager_();
-	}
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-bool isOutsideScreen(ImVec2 pos, ImVec2 screen) {
-    if (pos.y < 0) {
-        return true;
-    }
-    if (pos.x > screen.x) {
-        return true;
-    }
-    if (pos.y > screen.y) {
-        return true;
-    }
-    return pos.x < 0;
-}
-
-ImVec2 pushToScreenBorder(ImVec2 Pos, ImVec2 screen, int offset) {
-    int x = (int) Pos.x;
-    int y = (int) Pos.y;
-	
-    if (Pos.y < 0) {
-        y = -offset;
-    }
-	
-    if (Pos.x > screen.x) {
-        x = (int) screen.x + offset;
-    }
-	
-    if (Pos.y > screen.y) {
-        y = (int) screen.y + offset;
-    }
-	
-    if (Pos.x < 0) {
-        x = -offset;
-    }
-    return ImVec2(x, y);
-}
-
-void DrawCircleHealth(ImVec2 position, int health, int max_health, float radius) {
-    float a_max = ((3.14159265359f * 2.0f));
-    ImU32 healthColor = IM_COL32(45, 180, 45, 255);
-    if (health <= (max_health * 0.6)) {
-        healthColor = IM_COL32(180, 180, 45, 255);
-    }
-    if (health < (max_health * 0.3)) {
-        healthColor = IM_COL32(180, 45, 45, 255);
-    }
-    ImGui::GetForegroundDrawList()->PathArcTo(position, radius, (-(a_max / 4.0f)) + (a_max / max_health) * (max_health - health), a_max - (a_max / 4.0f));
-    ImGui::GetForegroundDrawList()->PathStroke(healthColor, ImDrawFlags_None, 4);
-}
-
 void DrawESP(ImDrawList *draw) {
 	
-	if (!Config.InitImGui.bInitDone)
-		return;
+	if (Config.ESPMenu.espEnable) {
 		
-	if (Enable_ESP) {
-		
-		static ActorManager *get_actorManager = KyriosFramework::get_actorManager();
-		if (get_actorManager != nullptr) {
+		GameplayModule *get_Instance = GameplayModule::get_Instance();
+		if (get_Instance != nullptr) {
 			
-			List<ActorLinker *> *GetAllHeros = get_actorManager->GetAllHeros();
-			if (GetAllHeros != nullptr) {
+			GameSystem *get_Game = get_Instance->get_Game();
+			if (get_Game != nullptr) {
 				
-				Vector3 myPos = Vector3::zero();
-				
-				ActorLinker *myActorLinker = GetAllHeros->getItems()[1];
-				if (myActorLinker != nullptr) {
-					myPos = myActorLinker->get_position();
-				}
-				
-				Vector3 myPosSC = Camera::get_main()->WorldToScreenPoint(myPos);
-				ImVec2 myPos_Vec2 = ImVec2(glWidth - myPosSC.x, myPosSC.y);
-				
-				if (myPosSC.z > 0) {
-					myPos_Vec2 = ImVec2(myPosSC.x, glHeight - myPosSC.y);
-				}
-				
-				ActorLinker **actorLinkers = (ActorLinker **) GetAllHeros->getItems();
-				for (int i = 0; i < GetAllHeros->getSize(); i++) {
+				List<Character *> *get_AllCharacters = get_Game->get_AllCharacters();
+				if (get_AllCharacters != nullptr) {
 					
-					ActorLinker *actorLinker = actorLinkers[(i *2) + 1];
-					if (actorLinker) {
-						
-						Vector3 rootPos_W2S = Camera::get_main()->WorldToScreenPoint(actorLinker->get_position());
-						Vector2 rootPos_Vec2 = Vector2(glWidth - rootPos_W2S.x, rootPos_W2S.y);
-						
-						if (rootPos_W2S.z > 0) {
-							rootPos_Vec2 = Vector2(rootPos_W2S.x, glHeight - rootPos_W2S.y);
-						}
-						
-						Vector2 headPos_Vec2 = Vector2(rootPos_Vec2.x, rootPos_Vec2.y - (glHeight / 6.35));
-						float distanceToMe = Vector3::Distance(myPos, actorLinker->get_position());
-						
-						if (!actorLinker->IsHostCamp() && !actorLinker->ValueComponent()->get_actorHp() < 1) {
+					Character **characters = (Character **) get_AllCharacters->getItems();
+					for (int i = 0; i < get_AllCharacters->getSize(); i++) {
+						Character *character = characters[i];
+						if (character != nullptr) {
 							
-							if (PlayerLine) {
-								draw->AddLine(myPos_Vec2, ImVec2(rootPos_Vec2.x, rootPos_Vec2.y), IM_COL32(253, 4, 4, 255), 1.7f);
-							}
-							
-							if (PlayerBox) {
-								float boxHeight = abs(headPos_Vec2.y - rootPos_Vec2.y);
-								float boxWidth = boxHeight * 0.75f;
+							CharacterModel *get_Model = character->get_Model();
+							if (get_Model != nullptr) {
 								
-								ImVec2 vStart = {headPos_Vec2.x - (boxWidth / 2), headPos_Vec2.y};
-								ImVec2 vEnd = {vStart.x + boxWidth, vStart.y + boxHeight};
-								draw->AddRect(vStart, vEnd, IM_COL32(45, 180, 45, 255), 0, 240, 1.7f);
-							}
-							
-							if (PlayerHealth) {
-								float boxHeight = abs(headPos_Vec2.y - rootPos_Vec2.y);
-								float boxWidth = boxHeight * 0.75f;
+								Vector3 rootTF = Vector3::zero();
 								
-								float PercentHP = ((float)actorLinker->ValueComponent()->get_actorHp() * boxHeight) / (float)actorLinker->ValueComponent()->get_actorHpTotal();
-								draw->AddRectFilled(ImVec2(rootPos_Vec2.x + (boxWidth / 2) + 5, rootPos_Vec2.y), ImVec2(rootPos_Vec2.x + (boxWidth / 2) + 15, rootPos_Vec2.y - PercentHP), IM_COL32(45, 180, 45, 255));
-								draw->AddRect(ImVec2(rootPos_Vec2.x + (boxWidth / 2) + 5, rootPos_Vec2.y), ImVec2(headPos_Vec2.x + (boxWidth / 2) + 15, headPos_Vec2.y), IM_COL32(0, 0, 0, 255), 0, 240, 0.5);
-							}
-							
-							if (PlayerName) {
+								Transform *m_root = get_Model->m_root();
 								
-								std::string strName = actorLinker->CharInfo()->ActorName()->CString();
+								if (m_root != nullptr) {
+									rootTF = Camera::get_main()->WorldToScreenPoint(m_root->get_position());
+								}
 								
-								auto textSize = ImGui::CalcTextSize(strName.c_str(), 0, ((float) glHeight / 39.0f));
-								draw->AddText(NULL, ((float) glHeight / 39.0f), {rootPos_Vec2.x - (textSize.x / 2), rootPos_Vec2.y + 25}, IM_COL32(255, 255, 255, 255), strName.c_str());
-							}
-							
-							if (PlayerDistance) {
-								std::string strDistance = to_string((int) distanceToMe); + " M";
-								
-								auto textSize = ImGui::CalcTextSize(strDistance.c_str(), 0, ((float) glHeight / 39.0f));
-								draw->AddText(NULL, ((float) glHeight / 39.0f), {rootPos_Vec2.x - (textSize.x / 2), rootPos_Vec2.y + 5}, IM_COL32(0, 180, 255, 255), strDistance.c_str());
-							}
-							
-							if (PlayerAlert && isOutsideScreen(ImVec2(rootPos_Vec2.x, rootPos_Vec2.y), ImVec2(glWidth, glHeight))) {
-								ImVec2 hintDotRenderPos = pushToScreenBorder(ImVec2(rootPos_Vec2.x, rootPos_Vec2.y), ImVec2(glWidth, glHeight), - 50);
-								ImVec2 hintTextRenderPos = pushToScreenBorder(ImVec2(rootPos_Vec2.x, rootPos_Vec2.y), ImVec2(glWidth, glHeight), - 50);
-								
-								draw->AddCircleFilled(hintDotRenderPos, 25, IM_COL32(255, 0, 0, 110));
-								DrawCircleHealth(hintDotRenderPos, actorLinker->ValueComponent()->get_actorHp(), actorLinker->ValueComponent()->get_actorHpTotal(), 25);
-								
-								std::string strDistance = to_string((int) distanceToMe) + " M";
-								auto textSize = ImGui::CalcTextSize(strDistance.c_str(), 0, ((float) glHeight / 45.0f));
-								draw->AddText(NULL, ((float) glHeight / 45.0f), {hintTextRenderPos.x - (textSize.x / 2), hintTextRenderPos.y - 7}, IM_COL32(255, 255, 255, 255), strDistance.c_str());
-								
-								if (actorLinker->CharInfo()->ActorName()) {
-									std::string strName = actorLinker->CharInfo()->ActorName()->CString();
-									auto textSize = ImGui::CalcTextSize(strName.c_str(), 0, ((float) glHeight / 39.0f));
-									draw->AddText(NULL, ((float) glHeight / 39.0f), {hintTextRenderPos.x - (textSize.x / 2), hintTextRenderPos.y + 30}, IM_COL32(255, 255, 255, 255), strName.c_str());
+								if (rootTF.z > 0 ) {
+									
+									if (EspLine) {
+										draw->AddLine(ImVec2(glWidth / 2, 0), ImVec2(rootTF.x, glHeight - rootTF.y), IM_COL32(255, 255, 0, 255), 1.5f);
+									}
+									
 								}
 							}
 						}
 					}
 				}
 			}
-			
 		}
 	}
 }
