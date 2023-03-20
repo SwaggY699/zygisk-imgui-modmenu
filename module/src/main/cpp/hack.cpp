@@ -298,16 +298,16 @@ void *hack_thread(void *arg) {
         DobbyHook(sym_input,(void*)myInput,(void**)&origInput);
     }
     
-    // ProcMap il2cppMap;
+    ProcMap il2cppMap;
     
-    // DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0xAEC0B278), (void *) SetResolutionn, (void **) &_SetResolutionn);
-    /*
+    DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0x68FE3C), (void *) SetResolutionn, (void **) &_SetResolutionn);
+    
     do {
         il2cppMap = KittyMemory::getLibraryMap(libName);
         sleep(1);
     } while (!il2cppMap.isValid());
-    */
     
+    /*
     while (!il2cppMap) {
        il2cppMap = Tools::GetBaseAddress(targetLib);
        sleep(10);
@@ -318,7 +318,7 @@ void *hack_thread(void *arg) {
     DobbyHook((void *) (uintptr_t)IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.CoreModule.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Screen") , OBFUSCATE("SetResolution"), 3), (void *) SetResolutionn, (void **) &_SetResolutionn);
     
     Config.InitImGui.bInitDone = true;
-    
+    */
     offsets_load();
     
     return nullptr;
