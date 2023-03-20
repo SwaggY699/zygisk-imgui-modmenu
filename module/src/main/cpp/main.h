@@ -74,7 +74,7 @@ uintptr_t il2cppMap;
 #define targetLib OBFUSCATE("libil2cpp.so")
 
 struct My_Patches {
-    MemoryPatch test1,test2,test3,test4;
+    MemoryPatch test1;
 } hexPatches;
 
 
@@ -82,15 +82,9 @@ void offsets_load() {
   
   //DobbyHook((void *) (IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.CoreModule.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Screen"), OBFUSCATE("SetResolution"), 3)), (void *) SetResolutionn, (void **) &_SetResolutionn);
   
-  hexPatches.test1 = MemoryPatch::createWithHex(targetLibName, 0x1C37E34, OBFUSCATE("00 00 A0 E3 1E FF 2F E1"));
-  hexPatches.test2 = MemoryPatch::createWithHex(targetLibName, 0x1B831D8, OBFUSCATE("00 00 A0 E3 1E FF 2F E1"));
-  hexPatches.test3 = MemoryPatch::createWithHex(targetLibName, 0x1B83488, OBFUSCATE("00 00 A0 E3 1E FF 2F E1"));
-  hexPatches.test4 = MemoryPatch::createWithHex(targetLibName, 0x1B82DF4, OBFUSCATE("00 00 A0 E3 1E FF 2F E1"));
+  hexPatches.test1 = MemoryPatch::createWithHex(targetLibName, 0xad2f41c8, OBFUSCATE("01 00 A0 E3 1E FF 2F E1"));
   
   hexPatches.test1.Modify();
-  hexPatches.test2.Modify();
-  hexPatches.test3.Modify();
-  hexPatches.test4.Modify();
   
 pthread_exit(nullptr);
 }
