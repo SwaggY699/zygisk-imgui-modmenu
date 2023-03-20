@@ -263,7 +263,7 @@ void *hack_thread(void *arg) {
         sleep(1);
     }
     
-    //DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0xAEC0B278), (void *) SetResolutionn, (void **) &_SetResolutionn);
+    DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0x68FE3C), (void *) SetResolutionn, (void **) &_SetResolutionn);
     
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
