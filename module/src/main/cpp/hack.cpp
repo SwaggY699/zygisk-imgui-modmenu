@@ -14,10 +14,12 @@ JNIEnv *g_env = nullptr;
 #include "imgui_impl_android.h"
 #include "imgui_impl_opengl3.h"
 #include "KittyMemory/MemoryPatch.h"
-//
+/*
 #include "Il2Cpp.h"
 #include "Tools.h"
-//
+*/
+#include "AutoHook.h"
+
 #include "main.h"
 
 #include "ImGuiStuff.h"
@@ -264,6 +266,7 @@ void *hack_thread(void *arg) {
     }
     
     //DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0x68FE3C), (void *) SetResolutionn, (void **) &_SetResolutionn);
+    //DobbyHook((void *) (uintptr_t)IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.CoreModule.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Screen") , OBFUSCATE("SetResolution"), 3), (void *) SetResolutionn, (void **) &_SetResolutionn);
     
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
@@ -278,22 +281,10 @@ void *hack_thread(void *arg) {
     if (NULL != sym_input){
         DobbyHook((void *)sym_input, (void *) myInput, (void **)&origInput);
     }
-    /*
+    
     do {
         sleep(1);
     } while (!isLibraryLoaded(OBFUSCATE("libil2cpp.so")));
-    */
-    
-    while (!il2cppMap) {
-       il2cppMap = Tools::GetBaseAddress("libil2cpp.so");
-       sleep(10);
-    }
-    sleep(10);
-    IL2Cpp::Il2CppAttach();
-    
-    DobbyHook((void *) (uintptr_t)IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.CoreModule.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Screen") , OBFUSCATE("SetResolution"), 3), (void *) SetResolutionn, (void **) &_SetResolutionn);
-    
-    Config.InitImGui.bInitDone = true;
     
     offsets_load();
     
@@ -308,27 +299,8 @@ void *hack_thread(void *arg) {
     if (NULL != sym_input) {
         DobbyHook(sym_input,(void*)myInput,(void**)&origInput);
     }
-    /*
-    ProcMap il2cppMap;
     
-    DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0x68FE3C), (void *) SetResolutionn, (void **) &_SetResolutionn);
-    
-    do {
-        il2cppMap = KittyMemory::getLibraryMap(libName);
-        sleep(1);
-    } while (!il2cppMap.isValid());
-    */  
-    
-    while (!il2cppMap) {
-       il2cppMap = Tools::GetBaseAddress(libName);
-       sleep(10);
-    }
-    sleep(10);
-    IL2Cpp::Il2CppAttach();
-    
-    DobbyHook((void *) (uintptr_t)IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.CoreModule.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Screen") , OBFUSCATE("SetResolution"), 3), (void *) SetResolutionn, (void **) &_SetResolutionn);
-    
-    Config.InitImGui.bInitDone = true;
+    //DobbyHook((void *) (uintptr_t)IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.CoreModule.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Screen") , OBFUSCATE("SetResolution"), 3), (void *) SetResolutionn, (void **) &_SetResolutionn);
     
     offsets_load();
     
