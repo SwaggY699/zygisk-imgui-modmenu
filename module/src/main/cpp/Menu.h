@@ -23,9 +23,9 @@ namespace Menu
                  ImGui::Checkbox(OBFUSCATE("Map Hack"), &maphack);
                  
                  if(maphack) {
-		  hexPatches.test1.Modify();
+		  //hexPatches.test1.Modify();
 	         } else {
-		  hexPatches.test1.Restore();
+		  //hexPatches.test1.Restore();
 	         }
                  
                 /*ImGui::Checkbox(OBFUSCATE("ESP"), &Enable_ESP);
