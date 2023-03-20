@@ -27,7 +27,7 @@ JNIEnv *g_env = nullptr;
 #include "Menu.h"
 
 
-const char* gamePKG = "com.criticalforceentertainment.criticalops";
+const char* gamePKG = "com.ngame.allstar.eu";
 
 #define HOOK(ret, func, ...) \
     ret (*orig##func)(__VA_ARGS__); \
@@ -42,7 +42,7 @@ HOOK(void, Input, void *thiz, void *ex_ab, void *ex_ac){
     ImGui_ImplAndroid_HandleInputEvent((AInputEvent *)thiz);
     return;
 }
-
+/*
 bool SetCustomResolution = true;
 
 void (*_SetResolutionn)(...);
@@ -53,7 +53,7 @@ if(SetCustomResolution){
 }
 _SetResolutionn(width, height, fullscreen);
 }
-
+*/
 jboolean (*orig_unity__nativeInjectEvent)(JNIEnv *env, jobject object, jobject inputEvent);
 jboolean unity_nativeInjectEvent(JNIEnv *env, jobject object, jobject inputEvent) {
 	ImGuiIO &io = ImGui::GetIO();
@@ -123,7 +123,10 @@ EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
 
 eglQuerySurface(dpy, surface, EGL_WIDTH, &glWidth);
     eglQuerySurface(dpy, surface, EGL_HEIGHT, &glHeight);
-	
+    
+    auto Screen_SetResolution = (void (*)(int, int, bool)) (getAbsoluteAddress("libil2cpp.so",0xaec0b278));
+    Screen_SetResolution(glWidth, glHeight, true);
+    
     if (glWidth <= 0 || glHeight <= 0) {
        return eglSwapBuffers(dpy, surface);
     }
@@ -266,7 +269,7 @@ void *hack_thread(void *arg) {
         sleep(1);
     }
     
-    DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0x1A16B5C), (void *) SetResolutionn, (void **) &_SetResolutionn);
+    //DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0x1A16B5C), (void *) SetResolutionn, (void **) &_SetResolutionn);
     
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
@@ -297,7 +300,7 @@ void *hack_thread(void *arg) {
     
     ProcMap il2cppMap;
     
-    DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0x1A16B5C), (void *) SetResolutionn, (void **) &_SetResolutionn);
+    //DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0x1A16B5C), (void *) SetResolutionn, (void **) &_SetResolutionn);
     
     do {
         il2cppMap = KittyMemory::getLibraryMap(libName);
