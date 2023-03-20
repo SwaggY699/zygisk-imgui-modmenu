@@ -307,6 +307,8 @@ void *hack_thread(void *arg) {
     
     // setresolution hook
     
+    Config.InitImGui.bInitDone = true;
+    
     offsets_load();
     
     return nullptr;
