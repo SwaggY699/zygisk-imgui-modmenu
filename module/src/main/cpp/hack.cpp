@@ -278,11 +278,11 @@ void *hack_thread(void *arg) {
     if (NULL != sym_input){
         DobbyHook((void *)sym_input, (void *) myInput, (void **)&origInput);
     }
-    /*
+    
     do {
         sleep(1);
     } while (!isLibraryLoaded(OBFUSCATE("libil2cpp.so")));
-    */
+    
     
     offsets_load();
     
