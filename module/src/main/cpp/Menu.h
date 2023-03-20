@@ -1,7 +1,7 @@
 #ifndef MENU
 #define MENU
 
-bool zzz;
+bool maphack;
 
 #include "ESP.h"
 namespace Menu
@@ -20,7 +20,14 @@ namespace Menu
             {
                 if (ImGui::BeginTabItem("ESP"))
                 {
-                 ImGui::Checkbox(OBFUSCATE("test"), &zzz);
+                 ImGui::Checkbox(OBFUSCATE("Map Hack"), &maphack);
+                 
+                 if(maphack) {
+		  hexPatches.test1.Modify();
+	         } else {
+		  hexPatches.test1.Restore();
+	         }
+                 
                 /*ImGui::Checkbox(OBFUSCATE("ESP"), &Enable_ESP);
 				ImGui::Checkbox(OBFUSCATE("Line"), &PlayerLine);
 				ImGui::Checkbox(OBFUSCATE("Box"), &PlayerBox);
