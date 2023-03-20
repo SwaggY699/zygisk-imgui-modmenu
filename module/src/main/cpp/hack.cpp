@@ -14,10 +14,10 @@ JNIEnv *g_env = nullptr;
 #include "imgui_impl_android.h"
 #include "imgui_impl_opengl3.h"
 #include "KittyMemory/MemoryPatch.h"
-/*
+//
 #include "Il2Cpp.h"
 #include "Tools.h"
-*/
+//
 #include "main.h"
 
 #include "ImGuiStuff.h"
@@ -27,14 +27,11 @@ JNIEnv *g_env = nullptr;
 #include "Menu.h"
 
 
-const char* gamePKG = "com.ngame.allstar.eu";
+const char* gamePKG = "com.nobodyshot.POLYWAR";
 
 #define HOOK(ret, func, ...) \
     ret (*orig##func)(__VA_ARGS__); \
     ret my##func(__VA_ARGS__)
-
-
-bool UnlockG;
 
 
 HOOK(void, Input, void *thiz, void *ex_ab, void *ex_ac){
@@ -127,16 +124,6 @@ eglQuerySurface(dpy, surface, EGL_WIDTH, &glWidth);
     if (glWidth <= 0 || glHeight <= 0) {
        return eglSwapBuffers(dpy, surface);
     }
-    
-    /*
-    ImGui::Checkbox("Unlock All Guns", &UnlockG);
-    
-    if (UnlockG) {
-        hexPatches.UnG.Modify();
-    } else {
-        hexPatches.UnG.Restore();
-    }
-    */
     
     SetupImGui();
     Menu::DrawImGui();
@@ -266,7 +253,7 @@ void *hack_thread(void *arg) {
         sleep(1);
     }
     
-    DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0xAEC0B278), (void *) SetResolutionn, (void **) &_SetResolutionn);
+    //DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0xAEC0B278), (void *) SetResolutionn, (void **) &_SetResolutionn);
     
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
@@ -281,12 +268,18 @@ void *hack_thread(void *arg) {
     if (NULL != sym_input){
         DobbyHook((void *)sym_input, (void *) myInput, (void **)&origInput);
     }
+    /*
     do {
         sleep(1);
     } while (!isLibraryLoaded(OBFUSCATE("libil2cpp.so")));
+    */
+    
     offsets_load();
+    
     return nullptr;
+    
     }else{
+    
     sleep(2);
     auto addr = (uintptr_t)dlsym(RTLD_NEXT, "eglSwapBuffers");
     DobbyHook((void*)addr, (void*)hook_eglSwapBuffers, (void**)&old_eglSwapBuffers);
@@ -295,14 +288,24 @@ void *hack_thread(void *arg) {
         DobbyHook(sym_input,(void*)myInput,(void**)&origInput);
     }
     
-    ProcMap il2cppMap;
+    // ProcMap il2cppMap;
     
-    DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0xAEC0B278), (void *) SetResolutionn, (void **) &_SetResolutionn);
-    
+    // DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0xAEC0B278), (void *) SetResolutionn, (void **) &_SetResolutionn);
+    /*
     do {
         il2cppMap = KittyMemory::getLibraryMap(libName);
         sleep(1);
     } while (!il2cppMap.isValid());
+    */
+    
+    while (!il2cppMap) {
+       il2cppMap = Tools::GetBaseAddress(targetLib);
+       sleep(10);
+    }
+    sleep(10);
+    IL2Cpp::Il2CppAttach();
+    
+    // setresolution hook
     
     offsets_load();
     
