@@ -14,14 +14,14 @@ JNIEnv *g_env = nullptr;
 #include "imgui_impl_android.h"
 #include "imgui_impl_opengl3.h"
 #include "KittyMemory/MemoryPatch.h"
-/*
+//
 #include "Il2Cpp.h"
 #include "Tools.h"
-*/
-
+uintptr_t g_il2cpp;
+std::map<std::string, uintptr_t> Fields;
+std::map<std::string, uintptr_t> Methods;
+//
 #include "main.h"
-
-#include "AutoHook.h"
 
 #include "ImGuiStuff.h"
 
@@ -266,12 +266,15 @@ void *hack_thread(void *arg) {
         sleep(1);
     }
     
-    //DobbyHook((void *) getAbsoluteAddress("libil2cpp.so",0x68FE3C), (void *) SetResolutionn, (void **) &_SetResolutionn);
-    //DobbyHook((void *) (uintptr_t)IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.CoreModule.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Screen") , OBFUSCATE("SetResolution"), 3), (void *) SetResolutionn, (void **) &_SetResolutionn);
+    while (!g_il2cpp) {
+        g_il2cpp = Tools::GetBaseAddress("libil2cpp.so");
+        sleep(1);
+    }
+    Il2CppAttach(targetLib);
+    sleep(5);
     
-    auto Screen = new LoadClass("UnityEngine", OBFUSCATE("Screen"));
-    DWORD ThisScreen = Screen->GetMethodOffsetByName(OBFUSCATE("SetResolution"), 3);  
-    DobbyHook((void *) ThisScreen, (void *) SetResolutionn, (void **) &_SetResolutionn);
+    Methods["Screen::SetResolution"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
+    DobbyHook((void *) Methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
     
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
@@ -287,10 +290,6 @@ void *hack_thread(void *arg) {
         DobbyHook((void *)sym_input, (void *) myInput, (void **)&origInput);
     }
     
-    do {
-        sleep(1);
-    } while (!isLibraryLoaded(OBFUSCATE("libil2cpp.so")));
-    
     offsets_load();
     
     return nullptr;
@@ -305,11 +304,15 @@ void *hack_thread(void *arg) {
         DobbyHook(sym_input,(void*)myInput,(void**)&origInput);
     }
     
-    //DobbyHook((void *) (uintptr_t)IL2Cpp::Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.CoreModule.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Screen") , OBFUSCATE("SetResolution"), 3), (void *) SetResolutionn, (void **) &_SetResolutionn);
+    while (!g_il2cpp) {
+        g_il2cpp = Tools::GetBaseAddress("libil2cpp.so");
+        sleep(1);
+    }
+    Il2CppAttach(targetLib);
+    sleep(5);
     
-    auto Screen = new LoadClass("UnityEngine", OBFUSCATE("Screen"));
-    DWORD ThisScreen = Screen->GetMethodOffsetByName(OBFUSCATE("SetResolution"), 3);  
-    DobbyHook((void *) ThisScreen, (void *) SetResolutionn, (void **) &_SetResolutionn);
+    Methods["Screen::SetResolution"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
+    DobbyHook((void *) Methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
     
     offsets_load();
     
