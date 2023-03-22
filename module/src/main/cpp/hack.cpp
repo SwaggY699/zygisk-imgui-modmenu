@@ -44,11 +44,11 @@ inline T setFieldValue(void *instance,ulong offset, T value) {
 
 #include "ImGuiStuff.h"
 
-//#include "Call_ESP.h"
+//#include "Call_ESP_2.h"
 
 #include "Menu.h"
 
-//
+/*
 struct sConfig {
 	struct sInitImGui {
 		bool initImGui;
@@ -57,7 +57,7 @@ struct sConfig {
 	sInitImGui InitImGui;
 };
 sConfig Config{0};
-//
+*/
 
 const char* gamePKG = "com.ngame.allstar.eu";
 
