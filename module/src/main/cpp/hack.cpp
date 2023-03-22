@@ -31,6 +31,8 @@ inline T setFieldValue(void *instance,ulong offset, T value) {
 //
 #include <Il2Cpp.h>
 //
+#include <xdl.h>
+//
 
 #include "main.h"
 
