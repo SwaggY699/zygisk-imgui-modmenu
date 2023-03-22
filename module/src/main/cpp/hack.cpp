@@ -59,7 +59,7 @@ struct sConfig {
 sConfig Config{0};
 //
 
-const char* gamePKG = "com.nobodyshot.POLYWAR";
+const char* gamePKG = "com.ngame.allstar.eu";
 
 #define HOOK(ret, func, ...) \
     ret (*orig##func)(__VA_ARGS__); \
