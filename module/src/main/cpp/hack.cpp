@@ -288,7 +288,7 @@ void *hack_thread(void *arg) {
     Il2CppAttach();
     sleep(1);
     
-    _methods["Screen::SetResolution"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
+    _methods["Screen::SetResolution"] = Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
     DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
     
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
@@ -322,7 +322,7 @@ void *hack_thread(void *arg) {
     Il2CppAttach();
     sleep(1);
     
-    _methods["Screen::SetResolution"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
+    _methods["Screen::SetResolution"] = Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
     DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
     
     offsets_load();
