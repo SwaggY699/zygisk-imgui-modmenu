@@ -1,8 +1,6 @@
 #ifndef MENU
 #define MENU
 
-bool maphack;
-
 #include "ESP.h"
 namespace Menu
 {
@@ -20,22 +18,14 @@ namespace Menu
             {
                 if (ImGui::BeginTabItem("ESP"))
                 {
-                 ImGui::Checkbox(OBFUSCATE("Map Hack"), &maphack);
-                 
-                 if(maphack) {
-		  //hexPatches.test1.Modify();
-	         } else {
-		  //hexPatches.test1.Restore();
-	         }
-                 
-                /*ImGui::Checkbox(OBFUSCATE("ESP"), &Enable_ESP);
-				ImGui::Checkbox(OBFUSCATE("Line"), &PlayerLine);
-				ImGui::Checkbox(OBFUSCATE("Box"), &PlayerBox);
-				ImGui::Checkbox(OBFUSCATE("Health"), &PlayerHealth);	
-				ImGui::Checkbox(OBFUSCATE("Name"), &PlayerName);
-				ImGui::Checkbox(OBFUSCATE("Distance"), &PlayerDistance);
-		     	ImGui::Checkbox(OBFUSCATE("Alert"), &PlayerAlert); */
-		    	ImGui::EndTabItem();
+                ImGui::Checkbox(OBFUSCATE("ESP"), &Enable_ESP);
+	        ImGui::Checkbox(OBFUSCATE("Line"), &PlayerLine);
+		ImGui::Checkbox(OBFUSCATE("Box"), &PlayerBox);
+		ImGui::Checkbox(OBFUSCATE("Health"), &PlayerHealth);	
+		ImGui::Checkbox(OBFUSCATE("Name"), &PlayerName);
+		ImGui::Checkbox(OBFUSCATE("Distance"), &PlayerDistance);
+		ImGui::Checkbox(OBFUSCATE("Alert"), &PlayerAlert);
+		ImGui::EndTabItem();
                 }
                 
                 ImGui::EndTabBar();
@@ -52,7 +42,7 @@ namespace Menu
             ImGui_ImplOpenGL3_NewFrame();
             ImGui_ImplAndroid_NewFrame(glWidth, glHeight);
             ImGui::NewFrame();
-            //DrawESP(ImGui::GetBackgroundDrawList());
+            DrawESP(ImGui::GetBackgroundDrawList());
             DrawMenu();
             ImGui::Render();
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
