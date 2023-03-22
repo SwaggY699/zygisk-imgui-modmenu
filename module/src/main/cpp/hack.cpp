@@ -29,9 +29,9 @@ inline T setFieldValue(void *instance,ulong offset, T value) {
     *(T*)((uintptr_t)instance + offset) = value;
 }
 //
-#include <Il2Cpp.h>
+#include "Il2Cpp.h"
 //
-#include <xdl.h>
+#include "xdl.h"
 //
 
 #include "main.h"
