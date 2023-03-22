@@ -20,7 +20,7 @@ JNIEnv *g_env = nullptr;
 #include <string>
 #include <string.h>
 #include <cstring>
-typedef unsigned long ulong;
+//typedef unsigned long ulong;
 //
 inline std::map < std::string, void*> _methods;
 inline std::map < std::string, size_t > _fields;
