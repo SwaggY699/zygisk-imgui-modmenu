@@ -16,13 +16,11 @@ JNIEnv *g_env = nullptr;
 #include "KittyMemory/MemoryPatch.h"
 
 //
-/*
 #include <map>
 #include <string>
 #include <string.h>
 #include <cstring>
-typedef unsigned long ulong;
-*/
+//typedef unsigned long ulong;
 //
 inline std::map < std::string, void*> _methods;
 inline std::map < std::string, size_t > _fields;
