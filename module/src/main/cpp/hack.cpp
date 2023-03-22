@@ -16,15 +16,17 @@ JNIEnv *g_env = nullptr;
 #include "KittyMemory/MemoryPatch.h"
 
 //
+/*
 #include <map>
 #include <string>
 #include <string.h>
 #include <cstring>
-//typedef unsigned long ulong;
+typedef unsigned long ulong;
+*/
 //
 inline std::map < std::string, void*> _methods;
 inline std::map < std::string, size_t > _fields;
-//
+/*
 template<typename T>
 inline T getFieldValue(void *instance,ulong offset) {
     return *(T*)((uintptr_t)instance + offset);
@@ -34,7 +36,7 @@ template<typename T>
 inline T setFieldValue(void *instance,ulong offset, T value) {
     *(T*)((uintptr_t)instance + offset) = value;
 }
-//
+*/
 #include "Il2Cpp.h"
 //
 #include "xdl.h"
