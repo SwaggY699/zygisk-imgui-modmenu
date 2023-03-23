@@ -1,8 +1,6 @@
 #ifndef MENU
 #define MENU
 
-bool mhack;
-
 #include "ESP.h"
 namespace Menu
 {
@@ -18,7 +16,7 @@ namespace Menu
 	        
             if (ImGui::BeginTabBar("VIP Mods", tab_bar_flags))
             {
-                if (ImGui::BeginTabItem("Menu"))
+                if (ImGui::BeginTabItem("View"))
                 {
                 ImGui::Checkbox(OBFUSCATE("Map Hack"), &mhack);
 	        
