@@ -46,6 +46,18 @@ inline T setFieldValue(void *instance,ulong offset, T value) {
 
 //#include "Call_ESP_2.h"
 
+bool mhack;
+
+bool (*old_Bypass)(void *instance);
+bool getBypass(void *instance) {
+    if (instance != NULL) {
+        if (mhack) {
+            return true;
+        }
+    }
+    return old_Bypass(instance);
+}
+
 #include "Menu.h"
 
 /*
@@ -290,6 +302,10 @@ void *hack_thread(void *arg) {
     
     _methods["Screen::SetResolution"] = Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
     DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
+    
+    _methods["LVActorLinker::CalcVisible"] = Il2CppGetMethodOffset("Project.Plugins_d.dll", "NucleusDrive.Logic", "LVActorLinker", "CalcVisible");
+    DobbyHook((void *) _methods["LVActorLinker::CalcVisible"], (void *) getBypass, (void **) &old_Bypass);
+    
     /*
     _methods["Camera::get_main"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "get_main");
     _methods["Camera::WorldToScreenPoint"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "WorldToScreenPoint", 1);
@@ -338,6 +354,10 @@ void *hack_thread(void *arg) {
     
     _methods["Screen::SetResolution"] = Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
     DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
+    
+    _methods["LVActorLinker::CalcVisible"] = Il2CppGetMethodOffset("Project.Plugins_d.dll", "NucleusDrive.Logic", "LVActorLinker", "CalcVisible");
+    DobbyHook((void *) _methods["LVActorLinker::CalcVisible"], (void *) getBypass, (void **) &old_Bypass);
+    
     /*
     _methods["Camera::get_main"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "get_main");
     _methods["Camera::WorldToScreenPoint"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "WorldToScreenPoint", 1);
