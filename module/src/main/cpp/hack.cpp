@@ -58,18 +58,18 @@ bool getBypass(void *instance) {
     return old_Bypass(instance);
 }
 
-#include "Menu.h"
+bool SetCustomResolution = true;
 
-/*
-struct sConfig {
-	struct sInitImGui {
-		bool initImGui;
-		bool bInitDone;
-	};
-	sInitImGui InitImGui;
-};
-sConfig Config{0};
-*/
+void (*_SetResolutionn)(...);
+void SetResolutionn(int width, int height, bool fullscreen){
+if(SetCustomResolution){
+  width = glWidth;
+ height = glHeight;
+}
+_SetResolutionn(width, height, fullscreen);
+}
+
+#include "Menu.h"
 
 const char* gamePKG = "com.ngame.allstar.eu";
 
@@ -82,17 +82,6 @@ HOOK(void, Input, void *thiz, void *ex_ab, void *ex_ac){
     origInput(thiz, ex_ab, ex_ac);
     ImGui_ImplAndroid_HandleInputEvent((AInputEvent *)thiz);
     return;
-}
-
-bool SetCustomResolution = true;
-
-void (*_SetResolutionn)(...);
-void SetResolutionn(int width, int height, bool fullscreen){
-if(SetCustomResolution){
-  width = glWidth;
- height = glHeight;
-}
-_SetResolutionn(width, height, fullscreen);
 }
 
 jboolean (*orig_unity__nativeInjectEvent)(JNIEnv *env, jobject object, jobject inputEvent);
