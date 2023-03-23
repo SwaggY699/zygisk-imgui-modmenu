@@ -37,7 +37,7 @@ namespace Menu
             ImGui_ImplOpenGL3_NewFrame();
             ImGui_ImplAndroid_NewFrame(glWidth, glHeight);
             ImGui::NewFrame();
-            DrawESP(ImGui::GetBackgroundDrawList());
+            //DrawESP(ImGui::GetBackgroundDrawList());
             DrawMenu();
             ImGui::Render();
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
