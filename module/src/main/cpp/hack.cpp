@@ -301,6 +301,7 @@ void *hack_thread(void *arg) {
     _methods["ActorLinker::IsHostCamp"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ActorLinker", "IsHostCamp");
     _methods["ActorManager::GetAllHeros"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ActorManager", "GetAllHeros");
     _methods["KyriosFramework::get_actorManager"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios", "KyriosFramework", "get_actorManager");
+    _methods["Camera::set_fieldOfView"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "set_fieldOfView", 1);
     
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
@@ -346,6 +347,7 @@ void *hack_thread(void *arg) {
     _methods["ActorLinker::IsHostCamp"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ActorLinker", "IsHostCamp");
     _methods["ActorManager::GetAllHeros"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ActorManager", "GetAllHeros");
     _methods["KyriosFramework::get_actorManager"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios", "KyriosFramework", "get_actorManager");
+    _methods["Camera::set_fieldOfView"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "set_fieldOfView", 1);
     
     offsets_load();
     
