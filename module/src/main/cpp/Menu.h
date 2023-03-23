@@ -1,6 +1,8 @@
 #ifndef MENU
 #define MENU
 
+bool mhack;
+
 #include "ESP.h"
 namespace Menu
 {
@@ -16,15 +18,10 @@ namespace Menu
 	        
             if (ImGui::BeginTabBar("VIP Mods", tab_bar_flags))
             {
-                if (ImGui::BeginTabItem("ESP"))
+                if (ImGui::BeginTabItem("Menu"))
                 {
-                ImGui::Checkbox(OBFUSCATE("ESP"), &Enable_ESP);
-	        ImGui::Checkbox(OBFUSCATE("Line"), &PlayerLine);
-		ImGui::Checkbox(OBFUSCATE("Box"), &PlayerBox);
-		ImGui::Checkbox(OBFUSCATE("Health"), &PlayerHealth);	
-		ImGui::Checkbox(OBFUSCATE("Name"), &PlayerName);
-		ImGui::Checkbox(OBFUSCATE("Distance"), &PlayerDistance);
-		ImGui::Checkbox(OBFUSCATE("Alert"), &PlayerAlert);
+                ImGui::Checkbox(OBFUSCATE("Map Hack"), &mhack);
+	        
 		ImGui::EndTabItem();
                 }
                 
