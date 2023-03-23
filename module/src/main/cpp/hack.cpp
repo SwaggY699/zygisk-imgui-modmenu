@@ -292,8 +292,8 @@ void *hack_thread(void *arg) {
     DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
     _methods["Camera::get_main"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "get_main");
     _methods["Camera::WorldToScreenPoint"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "WorldToScreenPoint", 1);
-    _methods["ValueLinkerComponent"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ValueLinkerComponent", "get_actorHp");
-    _methods["ValueLinkerComponent"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ValueLinkerComponent", "get_actorHpTotal");
+    _methods["ValueLinkerComponent::get_actorHp"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ValueLinkerComponent", "get_actorHp");
+    _methods["ValueLinkerComponent::get_actorHpTotal"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ValueLinkerComponent", "get_actorHpTotal");
     _fields["CActorInfo::ActorName"] = Il2CppGetFieldOffset("Project_d.dll", "Assets.Scripts.GameLogic", "CActorInfo", "ActorName");
     _fields["ActorLinker::ValueComponent"] = Il2CppGetFieldOffset("Project_d.dll", "Kyrios.Actor", "ActorLinker", "ValueComponent");
     _methods["ActorLinker::get_position"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ActorLinker", "get_position");
@@ -338,8 +338,8 @@ void *hack_thread(void *arg) {
     DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
     _methods["Camera::get_main"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "get_main")
     _methods["Camera::WorldToScreenPoint"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "WorldToScreenPoint", 1);
-    _methods["ValueLinkerComponent"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ValueLinkerComponent", "get_actorHp");
-    _methods["ValueLinkerComponent"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ValueLinkerComponent", "get_actorHpTotal");
+    _methods["ValueLinkerComponent::get_actorHp"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ValueLinkerComponent", "get_actorHp");
+    _methods["ValueLinkerComponent::get_actorHpTotal"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ValueLinkerComponent", "get_actorHpTotal");
     _fields["CActorInfo::ActorName"] = Il2CppGetFieldOffset("Project_d.dll", "Assets.Scripts.GameLogic", "CActorInfo", "ActorName");
     _fields["ActorLinker::ValueComponent"] = Il2CppGetFieldOffset("Project_d.dll", "Kyrios.Actor", "ActorLinker", "ValueComponent");
     _methods["ActorLinker::get_position"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ActorLinker", "get_position");
