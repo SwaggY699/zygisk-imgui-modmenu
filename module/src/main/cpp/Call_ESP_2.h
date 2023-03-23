@@ -55,7 +55,7 @@ class CActorInfo {
 	public:
 	
 	String *ActorName() {
-		return *(String **) ((uintptr_t) this + _fields["CActorInfo::ActorName"]);
+		return *(String **) (this + _fields["CActorInfo::ActorName"]);
 	}
 };
 
@@ -63,7 +63,7 @@ class ActorLinker {
 	public:
 	
 	ValueLinkerComponent *ValueComponent() {
-		return *(ValueLinkerComponent **) ((uintptr_t) this + _fields["ActorLinker::ValueComponent"]);
+		return *(ValueLinkerComponent **) (this + _fields["ActorLinker::ValueComponent"]);
 	}
 	
 	Vector3 get_position() {
@@ -72,7 +72,7 @@ class ActorLinker {
 	}
 	
 	CActorInfo *CharInfo() {
-		return *(CActorInfo **) ((uintptr_t) this + _fields["ActorLinker::CharInfo"]);
+		return *(CActorInfo **) (this + _fields["ActorLinker::CharInfo"]);
 	}
 	
 	bool IsHostCamp() {
