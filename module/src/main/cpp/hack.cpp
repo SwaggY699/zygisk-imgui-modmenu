@@ -44,7 +44,7 @@ inline T setFieldValue(void *instance,ulong offset, T value) {
 
 #include "ImGuiStuff.h"
 
-#include "Call_ESP_2.h"
+//#include "Call_ESP_2.h"
 
 #include "Menu.h"
 
@@ -290,6 +290,7 @@ void *hack_thread(void *arg) {
     
     _methods["Screen::SetResolution"] = Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
     DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
+    /*
     _methods["Camera::get_main"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "get_main");
     _methods["Camera::WorldToScreenPoint"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "WorldToScreenPoint", 1);
     _methods["ValueLinkerComponent::get_actorHp"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ValueLinkerComponent", "get_actorHp");
@@ -302,6 +303,7 @@ void *hack_thread(void *arg) {
     _methods["ActorManager::GetAllHeros"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ActorManager", "GetAllHeros");
     _methods["KyriosFramework::get_actorManager"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios", "KyriosFramework", "get_actorManager");
     _methods["Camera::set_fieldOfView"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "set_fieldOfView", 1);
+    */
     
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
@@ -336,6 +338,7 @@ void *hack_thread(void *arg) {
     
     _methods["Screen::SetResolution"] = Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
     DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
+    /*
     _methods["Camera::get_main"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "get_main");
     _methods["Camera::WorldToScreenPoint"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "WorldToScreenPoint", 1);
     _methods["ValueLinkerComponent::get_actorHp"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ValueLinkerComponent", "get_actorHp");
@@ -348,6 +351,7 @@ void *hack_thread(void *arg) {
     _methods["ActorManager::GetAllHeros"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ActorManager", "GetAllHeros");
     _methods["KyriosFramework::get_actorManager"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios", "KyriosFramework", "get_actorManager");
     _methods["Camera::set_fieldOfView"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "set_fieldOfView", 1);
+    */
     
     offsets_load();
     
