@@ -336,7 +336,7 @@ void *hack_thread(void *arg) {
     
     _methods["Screen::SetResolution"] = Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
     DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
-    _methods["Camera::get_main"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "get_main")
+    _methods["Camera::get_main"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "get_main");
     _methods["Camera::WorldToScreenPoint"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "WorldToScreenPoint", 1);
     _methods["ValueLinkerComponent::get_actorHp"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ValueLinkerComponent", "get_actorHp");
     _methods["ValueLinkerComponent::get_actorHpTotal"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ValueLinkerComponent", "get_actorHpTotal");
