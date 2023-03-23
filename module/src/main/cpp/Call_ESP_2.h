@@ -22,17 +22,17 @@ class Camera {
 	public:
 	
 	static Camera *get_main() {
-		Camera *(*get_main_) () = (Camera *(*)()) (Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Camera"), OBFUSCATE("get_main"), 0));
+		Camera *(*get_main_) () = (Camera *(*)()) (_methods["Camera::get_main"]);
 		return get_main_();
 	}
 	
 	Vector3 WorldToScreenPoint(Vector3 position) {
-		Vector3 (*WorldToScreenPoint_)(Camera *camera, Vector3 position) = (Vector3 (*)(Camera *, Vector3)) (Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Camera"), OBFUSCATE("WorldToScreenPoint"), 1));
+		Vector3 (*WorldToScreenPoint_)(Camera *camera, Vector3 position) = (Vector3 (*)(Camera *, Vector3)) (_methods["Camera::WorldToScreenPoint"]);
 		return WorldToScreenPoint_(this, position);
 	}
 	void set_fieldOfView(float view) {
 		if(this == nullptr) return;
-		void (*set_fieldOfView_)(Camera *camera, float value) = (void (*)(Camera *, float)) (Il2CppGetMethodOffset(OBFUSCATE("UnityEngine.dll"), OBFUSCATE("UnityEngine"), OBFUSCATE("Camera"), OBFUSCATE("set_fieldOfView"), 1));
+		void (*set_fieldOfView_)(Camera *camera, float value) = (void (*)(Camera *, float)) (_methods["Camera::set_fieldOfView"]);
 	     set_fieldOfView_(this, view);
 	}
 };
@@ -41,12 +41,12 @@ class ValueLinkerComponent {
 	public:
 	
 	int get_actorHp() {
-		int (*get_actorHp_)(ValueLinkerComponent *objLinkerWrapper) = (int (*)(ValueLinkerComponent *)) (Il2CppGetMethodOffset(OBFUSCATE("Project_d.dll"), OBFUSCATE("Kyrios.Actor"), OBFUSCATE("ValueLinkerComponent"), OBFUSCATE("get_actorHp"), 0));
+		int (*get_actorHp_)(ValueLinkerComponent *objLinkerWrapper) = (int (*)(ValueLinkerComponent *)) (_methods["ValueLinkerComponent::get_actorHp"]);
 		return get_actorHp_(this);
 	}
 	
 	int get_actorHpTotal() {
-		int (*get_actorHpTotal_)(ValueLinkerComponent *objLinkerWrapper) = (int (*)(ValueLinkerComponent *)) (Il2CppGetMethodOffset(OBFUSCATE("Project_d.dll"), OBFUSCATE("Kyrios.Actor"), OBFUSCATE("ValueLinkerComponent"), OBFUSCATE("get_actorHpTotal"), 0));
+		int (*get_actorHpTotal_)(ValueLinkerComponent *objLinkerWrapper) = (int (*)(ValueLinkerComponent *)) (_methods["ValueLinkerComponent::get_actorHpTotal"]);
 		return get_actorHpTotal_(this);
 	}	
 };
@@ -55,7 +55,7 @@ class CActorInfo {
 	public:
 	
 	String *ActorName() {
-		return *(String **) ((uintptr_t) this + Il2CppGetFieldOffset(OBFUSCATE("Project_d.dll"), OBFUSCATE("Assets.Scripts.GameLogic"), OBFUSCATE("CActorInfo"), OBFUSCATE("ActorName")));
+		return *(String **) ((uintptr_t) this + _fields["CActorInfo::ActorName"]);
 	}
 };
 
@@ -63,20 +63,20 @@ class ActorLinker {
 	public:
 	
 	ValueLinkerComponent *ValueComponent() {
-		return *(ValueLinkerComponent **) ((uintptr_t) this + Il2CppGetFieldOffset(OBFUSCATE("Project_d.dll"), OBFUSCATE("Kyrios.Actor"), OBFUSCATE("ActorLinker"), OBFUSCATE("ValueComponent")));
+		return *(ValueLinkerComponent **) ((uintptr_t) this + _fields["ActorLinker::ValueComponent"]);
 	}
 	
 	Vector3 get_position() {
-		Vector3 (*get_position_)(ActorLinker *linker) = (Vector3 (*)(ActorLinker *)) (Il2CppGetMethodOffset(OBFUSCATE("Project_d.dll"), OBFUSCATE("Kyrios.Actor"), OBFUSCATE("ActorLinker"), OBFUSCATE("get_position"), 0));
+		Vector3 (*get_position_)(ActorLinker *linker) = (Vector3 (*)(ActorLinker *)) (_methods["ActorLinker::get_position"]);
 		return get_position_(this);
 	}
 	
 	CActorInfo *CharInfo() {
-		return *(CActorInfo **) ((uintptr_t) this + Il2CppGetFieldOffset(OBFUSCATE("Project_d.dll"), OBFUSCATE("Kyrios.Actor"), OBFUSCATE("ActorLinker"), OBFUSCATE("CharInfo")));
+		return *(CActorInfo **) ((uintptr_t) this + _fields["ActorLinker::CharInfo"]);
 	}
 	
 	bool IsHostCamp() {
-		bool (*IsHostCamp_)(ActorLinker *linker) = (bool (*)(ActorLinker *)) (Il2CppGetMethodOffset(OBFUSCATE("Project_d.dll"), OBFUSCATE("Kyrios.Actor"), OBFUSCATE("ActorLinker"), OBFUSCATE("IsHostCamp"), 0));
+		bool (*IsHostCamp_)(ActorLinker *linker) = (bool (*)(ActorLinker *)) (_methods["ActorLinker::IsHostCamp"]);
 		return IsHostCamp_(this);
 	}
 };
@@ -85,7 +85,7 @@ class ActorManager {
 	public:
 	
 	List<ActorLinker *> *GetAllHeros() {
-		List<ActorLinker *> *(*_GetAllHeros)(ActorManager *actorManager) = (List<ActorLinker *> *(*)(ActorManager *)) (Il2CppGetMethodOffset(OBFUSCATE("Project_d.dll"), OBFUSCATE("Kyrios.Actor"), OBFUSCATE("ActorManager"), OBFUSCATE("GetAllHeros"), 0));
+		List<ActorLinker *> *(*_GetAllHeros)(ActorManager *actorManager) = (List<ActorLinker *> *(*)(ActorManager *)) (_methods["ActorManager::GetAllHeros"]);
 		return _GetAllHeros(this);
 	}
 };
@@ -94,7 +94,7 @@ class KyriosFramework {
 	public:
 	
 	static ActorManager *get_actorManager() {
-		auto get_actorManager_ = (ActorManager *(*)()) (Il2CppGetMethodOffset(OBFUSCATE("Project_d.dll"), OBFUSCATE("Kyrios"), OBFUSCATE("KyriosFramework"), OBFUSCATE("get_actorManager"), 0));
+		auto get_actorManager_ = (ActorManager *(*)()) (_methods["KyriosFramework::get_actorManager"]);
 		return get_actorManager_();
 	}
 };
