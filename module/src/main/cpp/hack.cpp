@@ -57,7 +57,7 @@ bool getBypass(void *instance) {
     }
     return old_Bypass(instance);
 }
-
+/*
 bool SetCustomResolution = true;
 
 void (*_SetResolutionn)(...);
@@ -68,6 +68,13 @@ if(SetCustomResolution){
 }
 _SetResolutionn(width, height, fullscreen);
 }
+*/
+
+#define Screen_get_width (uintptr_t) Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Screen", "get_width")
+#define Screen_get_height (uintptr_t) Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Screen", "get_height")
+
+Screen_get_width = glWidth;
+Screen_get_height = glHeight;
 
 #include "Menu.h"
 
@@ -289,8 +296,8 @@ void *hack_thread(void *arg) {
     Il2CppAttach();
     sleep(1);
     
-    _methods["Screen::SetResolution"] = Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
-    DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
+    //_methods["Screen::SetResolution"] = Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
+    //DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
     
     _methods["LVActorLinker::CalcVisible"] = Il2CppGetMethodOffset("Project.Plugins_d.dll", "NucleusDrive.Logic", "LVActorLinker", "CalcVisible");
     DobbyHook((void *) _methods["LVActorLinker::CalcVisible"], (void *) getBypass, (void **) &old_Bypass);
@@ -341,8 +348,8 @@ void *hack_thread(void *arg) {
     Il2CppAttach();
     sleep(1);
     
-    _methods["Screen::SetResolution"] = Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
-    DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
+    //_methods["Screen::SetResolution"] = Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
+    //DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
     
     _methods["LVActorLinker::CalcVisible"] = Il2CppGetMethodOffset("Project.Plugins_d.dll", "NucleusDrive.Logic", "LVActorLinker", "CalcVisible");
     DobbyHook((void *) _methods["LVActorLinker::CalcVisible"], (void *) getBypass, (void **) &old_Bypass);
