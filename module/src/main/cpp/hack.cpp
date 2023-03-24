@@ -70,11 +70,8 @@ _SetResolutionn(width, height, fullscreen);
 }
 */
 
-#define Screen_get_width (uintptr_t) Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Screen", "get_width")
-#define Screen_get_height (uintptr_t) Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Screen", "get_height")
-
-Screen_get_width = glWidth;
-Screen_get_height = glHeight;
+_methods["Screen::get_width"] = glWidth;
+_methods["Screen::get_height"] = glHeight;
 
 #include "Menu.h"
 
@@ -299,6 +296,9 @@ void *hack_thread(void *arg) {
     //_methods["Screen::SetResolution"] = Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
     //DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
     
+    _methods["Screen::get_width"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Screen", "get_width")
+    _methods["Screen::get_height"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Screen", "get_height")
+    
     _methods["LVActorLinker::CalcVisible"] = Il2CppGetMethodOffset("Project.Plugins_d.dll", "NucleusDrive.Logic", "LVActorLinker", "CalcVisible");
     DobbyHook((void *) _methods["LVActorLinker::CalcVisible"], (void *) getBypass, (void **) &old_Bypass);
     
@@ -350,6 +350,9 @@ void *hack_thread(void *arg) {
     
     //_methods["Screen::SetResolution"] = Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
     //DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
+    
+    _methods["Screen::get_width"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Screen", "get_width")
+    _methods["Screen::get_height"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Screen", "get_height")
     
     _methods["LVActorLinker::CalcVisible"] = Il2CppGetMethodOffset("Project.Plugins_d.dll", "NucleusDrive.Logic", "LVActorLinker", "CalcVisible");
     DobbyHook((void *) _methods["LVActorLinker::CalcVisible"], (void *) getBypass, (void **) &old_Bypass);
