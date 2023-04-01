@@ -33,6 +33,8 @@ inline std::map < std::string, size_t > _fields;
 
 //#include "Call_ESP_2.h"
 
+bool mhack;
+
 bool virtualby = true;
 bool virtualby2 = true;
 bool virtualby3 = true;
