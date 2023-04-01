@@ -80,7 +80,7 @@ _SetResolutionn(width, height, fullscreen);
 
 #include "Menu.h"
 
-const char* gamePKG = "com.ngame.allstar.eu";
+const char* gamePKG = "com.levelinfinite.sgameGlobal";
 
 #define HOOK(ret, func, ...) \
     ret (*orig##func)(__VA_ARGS__); \
