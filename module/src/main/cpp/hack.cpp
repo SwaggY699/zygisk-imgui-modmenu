@@ -33,42 +33,10 @@ inline std::map < std::string, size_t > _fields;
 
 //#include "Call_ESP_2.h"
 
-bool mhack;
-
-bool virtualby = true;
-bool virtualby2 = true;
-bool virtualby3 = true;
-
-bool (*old_Bypass)(void *instance);
-bool getBypass(void *instance) {
-    if (instance != NULL) {
-        if (virtualby) {
-            return false;
-        }
-    }
-    return old_Bypass(instance);
-}
-bool (*old_Bypass2)(void *instance);
-bool getBypass2(void *instance) {
-    if (instance != NULL) {
-        if (virtualby2) {
-            return false;
-        }
-    }
-    return old_Bypass2(instance);
-}
-bool (*old_Bypass3)(void *instance);
-bool getBypass3(void *instance) {
-    if (instance != NULL) {
-        if (virtualby3) {
-            return false;
-        }
-    }
-    return old_Bypass3(instance);
-}
+#include "Chams.h"
+bool chams, shading, wireframe, glow, outline, rainbow = false;
 
 bool SetCustomResolution = true;
-
 void (*_SetResolutionn)(...);
 void SetResolutionn(int width, int height, bool fullscreen){
 if(SetCustomResolution){
@@ -80,7 +48,7 @@ _SetResolutionn(width, height, fullscreen);
 
 #include "Menu.h"
 
-const char* gamePKG = "com.levelinfinite.sgameGlobal";
+const char* gamePKG = "com.criticalforceentertainment.criticalops";
 
 #define HOOK(ret, func, ...) \
     ret (*orig##func)(__VA_ARGS__); \
@@ -298,18 +266,13 @@ void *hack_thread(void *arg) {
     Il2CppAttach();
     sleep(1);
     
+    mlovinit();
+    setShader("unity_SHC");
+    LogShaders();
+    Wallhack();
+    
     _methods["Screen::SetResolution"] = Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
     DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
-    
-    
-    _methods["GCloud.AnoSDK::AnoSDK"] = Il2CppGetMethodOffset("Scripts.Plugins.dll", "GCloud.AnoSDK", "AnoSDK", "Init", 0);
-    DobbyHook((void *) _methods["GCloud.AnoSDK::AnoSDK"], (void *) getBypass, (void **) &old_Bypass);
-    
-    _methods["GCloud.AnoSDK::AnoSDKK"] = Il2CppGetMethodOffset("Scripts.Plugins.dll", "GCloud.AnoSDK", "AnoSDK", "ReadIntPtr", 2);
-    DobbyHook((void *) _methods["GCloud.AnoSDK::AnoSDKK"], (void *) getBypass2, (void **) &old_Bypass2);
-    
-    _methods["GCloud.AnoSDK::AnoSDKKK"] = Il2CppGetMethodOffset("Scripts.Plugins.dll", "GCloud.AnoSDK", "AnoSDK", "AnoSDKInit", 1);
-    DobbyHook((void *) _methods["GCloud.AnoSDK::AnoSDKKK"], (void *) getBypass3, (void **) &old_Bypass3);
     
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
@@ -342,18 +305,13 @@ void *hack_thread(void *arg) {
     Il2CppAttach();
     sleep(1);
     
+    mlovinit();
+    setShader("unity_SHC");
+    LogShaders();
+    Wallhack();
+    
     _methods["Screen::SetResolution"] = Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
     DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
-    
-    
-    _methods["GCloud.AnoSDK::AnoSDK"] = Il2CppGetMethodOffset("Scripts.Plugins.dll", "GCloud.AnoSDK", "AnoSDK", "Init", 0);
-    DobbyHook((void *) _methods["GCloud.AnoSDK::AnoSDK"], (void *) getBypass, (void **) &old_Bypass);
-    
-    _methods["GCloud.AnoSDK::AnoSDKK"] = Il2CppGetMethodOffset("Scripts.Plugins.dll", "GCloud.AnoSDK", "AnoSDK", "ReadIntPtr", 2);
-    DobbyHook((void *) _methods["GCloud.AnoSDK::AnoSDKK"], (void *) getBypass2, (void **) &old_Bypass2);
-    
-    _methods["GCloud.AnoSDK::AnoSDKKK"] = Il2CppGetMethodOffset("Scripts.Plugins.dll", "GCloud.AnoSDK", "AnoSDK", "AnoSDKInit", 1);
-    DobbyHook((void *) _methods["GCloud.AnoSDK::AnoSDKKK"], (void *) getBypass3, (void **) &old_Bypass3);
     
     offsets_load();
     
