@@ -16,18 +16,56 @@ namespace Menu
 	        
             if (ImGui::BeginTabBar("VIP Mods", tab_bar_flags))
             {
-                if (ImGui::BeginTabItem("View"))
+                if (ImGui::BeginTabItem("Chams"))
                 {
-                ImGui::Checkbox(OBFUSCATE("Map Hack"), &mhack);
-	        
+                ImGui::Checkbox(OBFUSCATE("Default"), &chams);
+	        ImGui::Checkbox(OBFUSCATE("Shading"), &shading);
+	        ImGui::Checkbox(OBFUSCATE("Wireframe"), &wireframe);
+	        ImGui::Checkbox(OBFUSCATE("Glow"), &glow);
+	        ImGui::Checkbox(OBFUSCATE("Outline"), &outline);
+	        ImGui::Checkbox(OBFUSCATE("Rainbow"), &rainbow);
 		ImGui::EndTabItem();
                 }
                 
                 ImGui::EndTabBar();
-                
 		}
-                
 		}
+        
+        if (chams) {
+        SetWallhack(true);
+        } else {
+        SetWallhack(false);
+        }
+        
+        if (shading) {
+        SetWallhackS(true);
+        } else {
+        SetWallhackS(false);
+        }
+        
+        if (wireframe) {
+        SetWallhackW(true);  
+        } else {
+        SetWallhackW(false);  
+        }
+        
+        if (glow) {
+        SetWallhackG(true);
+        } else {
+        SetWallhackG(false);
+        }
+        
+        if (outline) {
+        SetWallhackO(true); 
+        } else {
+        SetWallhackO(false);
+        }
+        
+        if (rainbow) {
+        SetRainbow(true);
+        } else {
+        SetRainbow(false);
+        }
     }
     void DrawImGui()
     {
