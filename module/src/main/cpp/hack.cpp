@@ -15,30 +15,17 @@ JNIEnv *g_env = nullptr;
 #include "imgui_impl_opengl3.h"
 #include "KittyMemory/MemoryPatch.h"
 
-//
 #include <map>
 #include <string>
 #include <string.h>
 #include <cstring>
-//typedef unsigned long ulong;
-//
+
 inline std::map < std::string, void*> _methods;
 inline std::map < std::string, size_t > _fields;
-/*
-template<typename T>
-inline T getFieldValue(void *instance,ulong offset) {
-    return *(T*)((uintptr_t)instance + offset);
-}
 
-template<typename T>
-inline T setFieldValue(void *instance,ulong offset, T value) {
-    *(T*)((uintptr_t)instance + offset) = value;
-}
-*/
 #include "Il2Cpp.h"
-//
+
 #include "xdl.h"
-//
 
 #include "main.h"
 
@@ -46,18 +33,38 @@ inline T setFieldValue(void *instance,ulong offset, T value) {
 
 //#include "Call_ESP_2.h"
 
-bool mhack;
+bool virtualby = true;
+bool virtualby2 = true;
+bool virtualby3 = true;
 
 bool (*old_Bypass)(void *instance);
 bool getBypass(void *instance) {
     if (instance != NULL) {
-        if (mhack) {
-            return true;
+        if (virtualby) {
+            return false;
         }
     }
     return old_Bypass(instance);
 }
-/*
+bool (*old_Bypass2)(void *instance);
+bool getBypass2(void *instance) {
+    if (instance != NULL) {
+        if (virtualby2) {
+            return false;
+        }
+    }
+    return old_Bypass2(instance);
+}
+bool (*old_Bypass3)(void *instance);
+bool getBypass3(void *instance) {
+    if (instance != NULL) {
+        if (virtualby3) {
+            return false;
+        }
+    }
+    return old_Bypass3(instance);
+}
+
 bool SetCustomResolution = true;
 
 void (*_SetResolutionn)(...);
@@ -68,10 +75,6 @@ if(SetCustomResolution){
 }
 _SetResolutionn(width, height, fullscreen);
 }
-*/
-
-_methods["Screen::get_width"] = glWidth;
-_methods["Screen::get_height"] = glHeight;
 
 #include "Menu.h"
 
@@ -293,29 +296,18 @@ void *hack_thread(void *arg) {
     Il2CppAttach();
     sleep(1);
     
-    //_methods["Screen::SetResolution"] = Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
-    //DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
+    _methods["Screen::SetResolution"] = Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
+    DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
     
-    _methods["Screen::get_width"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Screen", "get_width");
-    _methods["Screen::get_height"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Screen", "get_height");
     
-    _methods["LVActorLinker::CalcVisible"] = Il2CppGetMethodOffset("Project.Plugins_d.dll", "NucleusDrive.Logic", "LVActorLinker", "CalcVisible");
-    DobbyHook((void *) _methods["LVActorLinker::CalcVisible"], (void *) getBypass, (void **) &old_Bypass);
+    _methods["GCloud.AnoSDK::AnoSDK"] = Il2CppGetMethodOffset("Scripts.Plugins.dll", "GCloud.AnoSDK", "AnoSDK", "Init", 0);
+    DobbyHook((void *) _methods["GCloud.AnoSDK::AnoSDK"], (void *) getBypass, (void **) &old_Bypass);
     
-    /*
-    _methods["Camera::get_main"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "get_main");
-    _methods["Camera::WorldToScreenPoint"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "WorldToScreenPoint", 1);
-    _methods["ValueLinkerComponent::get_actorHp"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ValueLinkerComponent", "get_actorHp");
-    _methods["ValueLinkerComponent::get_actorHpTotal"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ValueLinkerComponent", "get_actorHpTotal");
-    _fields["CActorInfo::ActorName"] = Il2CppGetFieldOffset("Project_d.dll", "Assets.Scripts.GameLogic", "CActorInfo", "ActorName");
-    _fields["ActorLinker::ValueComponent"] = Il2CppGetFieldOffset("Project_d.dll", "Kyrios.Actor", "ActorLinker", "ValueComponent");
-    _methods["ActorLinker::get_position"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ActorLinker", "get_position");
-    _fields["ActorLinker::CharInfo"] = Il2CppGetFieldOffset("Project_d.dll", "Kyrios.Actor", "ActorLinker", "CharInfo");
-    _methods["ActorLinker::IsHostCamp"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ActorLinker", "IsHostCamp");
-    _methods["ActorManager::GetAllHeros"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ActorManager", "GetAllHeros");
-    _methods["KyriosFramework::get_actorManager"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios", "KyriosFramework", "get_actorManager");
-    _methods["Camera::set_fieldOfView"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "set_fieldOfView", 1);
-    */
+    _methods["GCloud.AnoSDK::AnoSDKK"] = Il2CppGetMethodOffset("Scripts.Plugins.dll", "GCloud.AnoSDK", "AnoSDK", "ReadIntPtr", 2);
+    DobbyHook((void *) _methods["GCloud.AnoSDK::AnoSDKK"], (void *) getBypass2, (void **) &old_Bypass2);
+    
+    _methods["GCloud.AnoSDK::AnoSDKKK"] = Il2CppGetMethodOffset("Scripts.Plugins.dll", "GCloud.AnoSDK", "AnoSDK", "AnoSDKInit", 1);
+    DobbyHook((void *) _methods["GCloud.AnoSDK::AnoSDKKK"], (void *) getBypass3, (void **) &old_Bypass3);
     
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
@@ -348,29 +340,18 @@ void *hack_thread(void *arg) {
     Il2CppAttach();
     sleep(1);
     
-    //_methods["Screen::SetResolution"] = Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
-    //DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
+    _methods["Screen::SetResolution"] = Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
+    DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
     
-    _methods["Screen::get_width"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Screen", "get_width");
-    _methods["Screen::get_height"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Screen", "get_height");
     
-    _methods["LVActorLinker::CalcVisible"] = Il2CppGetMethodOffset("Project.Plugins_d.dll", "NucleusDrive.Logic", "LVActorLinker", "CalcVisible");
-    DobbyHook((void *) _methods["LVActorLinker::CalcVisible"], (void *) getBypass, (void **) &old_Bypass);
+    _methods["GCloud.AnoSDK::AnoSDK"] = Il2CppGetMethodOffset("Scripts.Plugins.dll", "GCloud.AnoSDK", "AnoSDK", "Init", 0);
+    DobbyHook((void *) _methods["GCloud.AnoSDK::AnoSDK"], (void *) getBypass, (void **) &old_Bypass);
     
-    /*
-    _methods["Camera::get_main"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "get_main");
-    _methods["Camera::WorldToScreenPoint"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "WorldToScreenPoint", 1);
-    _methods["ValueLinkerComponent::get_actorHp"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ValueLinkerComponent", "get_actorHp");
-    _methods["ValueLinkerComponent::get_actorHpTotal"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ValueLinkerComponent", "get_actorHpTotal");
-    _fields["CActorInfo::ActorName"] = Il2CppGetFieldOffset("Project_d.dll", "Assets.Scripts.GameLogic", "CActorInfo", "ActorName");
-    _fields["ActorLinker::ValueComponent"] = Il2CppGetFieldOffset("Project_d.dll", "Kyrios.Actor", "ActorLinker", "ValueComponent");
-    _methods["ActorLinker::get_position"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ActorLinker", "get_position");
-    _fields["ActorLinker::CharInfo"] = Il2CppGetFieldOffset("Project_d.dll", "Kyrios.Actor", "ActorLinker", "CharInfo");
-    _methods["ActorLinker::IsHostCamp"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ActorLinker", "IsHostCamp");
-    _methods["ActorManager::GetAllHeros"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios.Actor", "ActorManager", "GetAllHeros");
-    _methods["KyriosFramework::get_actorManager"] = Il2CppGetMethodOffset("Project_d.dll", "Kyrios", "KyriosFramework", "get_actorManager");
-    _methods["Camera::set_fieldOfView"] = Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "set_fieldOfView", 1);
-    */
+    _methods["GCloud.AnoSDK::AnoSDKK"] = Il2CppGetMethodOffset("Scripts.Plugins.dll", "GCloud.AnoSDK", "AnoSDK", "ReadIntPtr", 2);
+    DobbyHook((void *) _methods["GCloud.AnoSDK::AnoSDKK"], (void *) getBypass2, (void **) &old_Bypass2);
+    
+    _methods["GCloud.AnoSDK::AnoSDKKK"] = Il2CppGetMethodOffset("Scripts.Plugins.dll", "GCloud.AnoSDK", "AnoSDK", "AnoSDKInit", 1);
+    DobbyHook((void *) _methods["GCloud.AnoSDK::AnoSDKKK"], (void *) getBypass3, (void **) &old_Bypass3);
     
     offsets_load();
     
