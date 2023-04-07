@@ -24,6 +24,12 @@ namespace Menu
 	        ImGui::Checkbox(OBFUSCATE("Glow"), &glow);
 	        ImGui::Checkbox(OBFUSCATE("Outline"), &outline);
 	        ImGui::Checkbox(OBFUSCATE("Rainbow"), &rainbow);
+                /*
+                ImGui::SliderInt(OBFUSCATE("Line Width"), &SetW, -0.0f, 255.0f);
+                ImGui::SliderInt(OBFUSCATE("RED"), &SetR, -0.0f, 255.0f);
+                ImGui::SliderInt(OBFUSCATE("GREEN"), &SetG, -0.0f, 255.0f);
+                ImGui::SliderInt(OBFUSCATE("BLUE"), &SetB, -0.0f, 255.0f);
+                */
 		ImGui::EndTabItem();
                 }
                 
@@ -66,6 +72,20 @@ namespace Menu
         } else {
         SetRainbow(false);
         }
+        /*
+        if (SetW) {
+        SetW(value);
+        }
+        if (SetR) {
+        SetR(value);
+        }
+        if (SetG) {
+        SetG(value);
+        }
+        if (SetB) {
+        SetB(value);
+        }
+        */
     }
     void DrawImGui()
     {
