@@ -35,7 +35,7 @@ inline std::map < std::string, size_t > _fields;
 
 #include "Chams.h"
 bool chams, shading, wireframe, glow, outline, rainbow = false;
-
+/*
 bool SetCustomResolution = true;
 void (*_SetResolutionn)(...);
 void SetResolutionn(int width, int height, bool fullscreen){
@@ -45,7 +45,7 @@ if(SetCustomResolution){
 }
 _SetResolutionn(width, height, fullscreen);
 }
-
+*/
 #include "Menu.h"
 
 const char* gamePKG = "com.criticalforceentertainment.criticalops";
@@ -270,10 +270,10 @@ void *hack_thread(void *arg) {
     setShader("unity_SHC");
     LogShaders();
     Wallhack();
-    
+    /*
     _methods["Screen::SetResolution"] = Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
     DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
-    
+    */
     auto eglSwapBuffers = dlsym(unity_handle, "eglSwapBuffers");
     const char *dlsym_error = dlerror();
     if (dlsym_error)
@@ -309,10 +309,10 @@ void *hack_thread(void *arg) {
     setShader("unity_SHC");
     LogShaders();
     Wallhack();
-    
+    /*
     _methods["Screen::SetResolution"] = Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Screen", "SetResolution", 3);
     DobbyHook((void *) _methods["Screen::SetResolution"], (void *) SetResolutionn, (void **) &_SetResolutionn);
-    
+    */
     offsets_load();
     
     return nullptr;
