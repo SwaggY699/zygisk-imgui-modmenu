@@ -267,7 +267,7 @@ void *hack_thread(void *arg) {
     sleep(1);
     
     mlovinit();
-    setShader("unity_SHC");
+    setShader("unity_SpecCube0");
     LogShaders();
     Wallhack();
     
@@ -306,7 +306,7 @@ void *hack_thread(void *arg) {
     sleep(1);
     
     mlovinit();
-    setShader("unity_SHC");
+    setShader("unity_SpecCube0");
     LogShaders();
     Wallhack();
     
