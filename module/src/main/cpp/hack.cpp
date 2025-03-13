@@ -48,7 +48,7 @@ _SetResolutionn(width, height, fullscreen);
 */
 #include "Menu.h"
 
-const char* gamePKG = "com.criticalforceentertainment.criticalops";
+const char* gamePKG = "com.ngame.allstar.eu";
 
 #define HOOK(ret, func, ...) \
     ret (*orig##func)(__VA_ARGS__); \
